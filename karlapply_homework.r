@@ -99,9 +99,19 @@ lapply(plot_by_species[1:10],
 
 
 
+#Nia solution
 
-
-
+#read in data
+serengeti = read_csv("http://datadryad.org/bitstream/handle/10255/dryad.86348/consensus_data.csv")
+ 
+#Split dataset on species and extract columns 10 and 11 (behaviours)
+serengeti.Species2 = split(serengeti[10:11], serengeti$Species)
+ 
+#Set up multi-paneled plot
+par(mfrow=c(2,5))
+ 
+#Plots 1-10 with name
+lapply(names(serengeti.Species2[1:10]), function(x) plot(serengeti.Species2[[x]], main = x))
 
 
 

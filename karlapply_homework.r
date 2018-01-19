@@ -86,3 +86,23 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 # requires more 'upstream work' then a good old for loop.
 
 
+
+
+#Jonathan Kennel
+
+plot_by_species = split(serengeti, serengeti$Species) #split by species
+
+par(mfrow=c(2,5))
+
+lapply(plot_by_species[1:10], 
+		function(x) plot(Standing~Resting, x, main = Species[1]))
+
+
+
+
+
+
+
+
+
+

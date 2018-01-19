@@ -100,6 +100,12 @@ lapply(plot_by_species[1:10],
 
 
 #Nia solution
+# I can follow this solution below better
+# we are applying the function to the list of names, where each list of
+# names are used to call the particular subset of the serengeti.Species2 list
+
+# the x in function x is 'aardvark' 'aardwolf' etc. and the it is calling the list
+# member correspnding to the name and plotting it while applying the label to the plot
 
 #read in data
 serengeti = read_csv("http://datadryad.org/bitstream/handle/10255/dryad.86348/consensus_data.csv")

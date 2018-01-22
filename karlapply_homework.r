@@ -77,9 +77,9 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 #why are these opposite?
 
 
-#mapply is also not as intuitive as a loop, if I wasn't comfortable with
-#the vernacular of R I'm not sure I would have been able to google the right 
-#questions!
+# mapply is also not as intuitive as a loop, if I wasn't comfortable with
+# the vernacular of R I'm not sure I would have been able to google the right 
+# questions!
 
 # I can't apply my function 'as is'... I needed to rewrite the function to
 # accomidate the names() usage... so although the mapply is efficient, it 
@@ -88,7 +88,7 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 
 
 
-#Jonathan Kennel
+#Jonathan Kennel's answer
 
 plot_by_species = split(serengeti, serengeti$Species) #split by species
 
@@ -99,13 +99,13 @@ lapply(plot_by_species[1:10],
 
 
 
-#Nia solution
-# I can follow this solution below better
+#Nia's solution
+# I can follow the solution below better
 # we are applying the function to the list of names, where each list of
 # names are used to call the particular subset of the serengeti.Species2 list
 
-# the x in function x is 'aardvark' 'aardwolf' etc. and the it is calling the list
-# member correspnding to the name and plotting it while applying the label to the plot
+# the x in function(x) is c('aardvark' 'aardwolf'... etc.) and it is calling the serengeti.Species2
+# list member correspnding to the name, and plotting it while applying the label to the plot
 
 #read in data
 serengeti = read_csv("http://datadryad.org/bitstream/handle/10255/dryad.86348/consensus_data.csv")

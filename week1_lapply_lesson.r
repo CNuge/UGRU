@@ -121,7 +121,7 @@ site.dim.lapply[1]
 
 for(i in 1:length(site.dim.lapply)){
   if(site.dim.lapply[[i]] != site.dim.for[[i]]){
-      print('FUCK')
+      print('error')
   }
 }
 

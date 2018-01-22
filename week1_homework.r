@@ -2,20 +2,68 @@ library(tidyverse)
 library(viridis)
 
 serengeti = read_csv("http://datadryad.org/bitstream/handle/10255/dryad.86348/consensus_data.csv")
-serengeti.Site = split(serengeti, serengeti$SiteID)
 serengeti.behaviours = serengeti[10:11] # a data frame/tibble is a list of columns/variables!
 plot_by_species = split(serengeti[10:11], serengeti$Species) #split by species
 to_plot = plot_by_species[1:10] #so I don't forget to subset
 
 
-
+##############
+#
 ### Q1: apply the summary function to each of the different species
+#
+###############
 
 par(mfrow=c(2,5))
 lapply(plot_by_species[1:10], plot)
 
+##############
+#
 ### Q2: apply the plot function to the first 10 species
+#
+###############
 # and have the names of the species on the given plots
+
+##############
+#
+#Jonathan Kennel's answer
+#
+###############
+
+
+plot_by_species = split(serengeti, serengeti$Species) #split by species
+
+par(mfrow=c(2,5))
+
+lapply(plot_by_species[1:10], 
+		function(x) plot(Standing~Resting, x, main = Species[1]))
+
+
+
+##############
+#
+#Nia's solution
+#
+###############
+
+# I can follow the solution below better
+# we are applying the function to the list of names, where each list of
+# names are used to call the particular subset of the serengeti.Species2 list
+
+# the x in function(x) is c('aardvark' 'aardwolf'... etc.) and it is calling the serengeti.Species2
+# list member correspnding to the name, and plotting it while applying the label to the plot
+
+#read in data
+serengeti = read_csv("http://datadryad.org/bitstream/handle/10255/dryad.86348/consensus_data.csv")
+ 
+#Split dataset on species and extract columns 10 and 11 (behaviours)
+serengeti.Species2 = split(serengeti[10:11], serengeti$Species)
+ 
+#Set up multi-paneled plot
+par(mfrow=c(2,5))
+ 
+#Plots 1-10 with name
+lapply(names(serengeti.Species2[1:10]), function(x) plot(serengeti.Species2[[x]], main = x))
+
 
 ##############
 #
@@ -84,41 +132,6 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 # I can't apply my function 'as is'... I needed to rewrite the function to
 # accomidate the names() usage... so although the mapply is efficient, it 
 # requires more 'upstream work' then a good old for loop.
-
-
-
-
-#Jonathan Kennel's answer
-
-plot_by_species = split(serengeti, serengeti$Species) #split by species
-
-par(mfrow=c(2,5))
-
-lapply(plot_by_species[1:10], 
-		function(x) plot(Standing~Resting, x, main = Species[1]))
-
-
-
-#Nia's solution
-# I can follow the solution below better
-# we are applying the function to the list of names, where each list of
-# names are used to call the particular subset of the serengeti.Species2 list
-
-# the x in function(x) is c('aardvark' 'aardwolf'... etc.) and it is calling the serengeti.Species2
-# list member correspnding to the name, and plotting it while applying the label to the plot
-
-#read in data
-serengeti = read_csv("http://datadryad.org/bitstream/handle/10255/dryad.86348/consensus_data.csv")
- 
-#Split dataset on species and extract columns 10 and 11 (behaviours)
-serengeti.Species2 = split(serengeti[10:11], serengeti$Species)
- 
-#Set up multi-paneled plot
-par(mfrow=c(2,5))
- 
-#Plots 1-10 with name
-lapply(names(serengeti.Species2[1:10]), function(x) plot(serengeti.Species2[[x]], main = x))
-
 
 
 

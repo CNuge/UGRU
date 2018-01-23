@@ -156,7 +156,8 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 # requires more 'upstream work' then a good old for loop.
 
 
-# Cam's morals of the story:
+# Cam yelling from atop a soapbox:
+
 # 1. The apply family is fun R specific syntactic sugar (which is a tradeoff)
 # using the syntactic sugar of R provides the ability to project code along a series 
 # or dataframe all in one line. This is concise and appears to carry a speed advantage,
@@ -166,9 +167,54 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 # 2. x[i] vs x[[i]]
 # here is the official documentation on it:
 # https://cran.r-project.org/doc/manuals/R-lang.html#Indexing
-# Whoever wrote R should have just made dictonaries/hash tables a core component of the language
 # Having x[i] return an object with a label on it causes more problems then it solves
-# and makes the data structure seem clunky.
+# and makes the data structure clunky. My gripe with this (and other things like tibbles)
+# is that I have to do extra work to get plain data... the labels are more 
+# 'sticky' than common sense would suggest they should be
+
+# For example the simplest labelled list possible:
+
+# a list of 3 numbers and their corresponding labels
+my_list = c(1,2,3)
+names(my_list)= c('a', 'b', 'c')
+
+my_list
+
+# what is at position a?
+
+my_list['a'] # in Cam's utopian R this would just return a plain 1
+# but a alas the 'a' label is stuck on top
+# paradoxically the type tells me it is a number :l 
+typeof(my_list['a'])	
+# but that seems not true because for practical purposes it behaves like a one member list!
+# see below when I do math with the data in the  first position of my list,
+# I get a LABELLED NUMBER! ugh.
+my_list['a'] + 3
+
+# long story long the [[i]] should be the default, and the labelled the special case.
+# in most instance a naked number makes more sense
+my_list[['a']] # this should be what my_list['a'] returns
+
+
+# 3. What I learned from today's homework is that the lapply sees data from my Utopian R,
+# and not the behaviour we see when we call things one at a time from the list.
+
+# Consider the data from the homework, here isolated as to_plot
+# it is a labelled list of 5 dataframes
+
+typeof(to_plot) #its a list
+to_plot[1] #this gives me a labelled dataframe 'aardvark'
+to_plot[[1]] #this gives me just a list without the 'aardvark' label
+
+
+
+
+
+
+
+
+
+
 
 
 

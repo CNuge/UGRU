@@ -19,10 +19,29 @@ lapply(plot_by_species[1:10], plot)
 ##############
 #
 ### Q2: apply the plot function to the first 10 species
+### Pair-intermediate: can you plot the species name as the title of the plot?
 #
 ###############
 # and have the names of the species on the given plots
 
+
+##############
+#
+#Matt B's answer
+#
+##############
+
+# the simplest by far... but it doesn't use lapply just good old iteration
+# his notes:
+##A lot of people suggested the use of function (anonymous and otherwise)
+##However, iterating through a very simple for loop does the trick 
+##The code is easier to learn/write, there's really no need to get fancy
+##This for loop works like a dream!!
+
+par(mfrow=c(2,5))
+for(i in 1:10){
+  plot(plot_by_species[[i]], main = names(plot_by_species[i]))
+}
 
 ##############
 #
@@ -53,9 +72,7 @@ lapply(plot_by_species[1:10],
 # the x in function(x) is c('aardvark' 'aardwolf'... etc.) and it is calling the serengeti.Species2
 # list member correspnding to the name, and plotting it while applying the label to the plot
 
-#read in data
-serengeti = read_csv("http://datadryad.org/bitstream/handle/10255/dryad.86348/consensus_data.csv")
- 
+
 #Split dataset on species and extract columns 10 and 11 (behaviours)
 serengeti.Species2 = split(serengeti[10:11], serengeti$Species)
  
@@ -71,6 +88,10 @@ lapply(names(serengeti.Species2[1:10]), function(x) plot(serengeti.Species2[[x]]
 # Cam Solution 1
 #
 ###############
+
+# this is the same as Matt B's but utilizes a function to make the plot
+# just abstracted the plot away on preference more then anything. Matt's answer K.i.s.s.
+
 
 #make a function that plots the data and adds a name
 behaviour_name_plot = function(data){
@@ -91,8 +112,8 @@ lapply(to_plot, behaviour_name_plot)
 
 #but if I loop over them it works as I would expect
 #so lapply and loops are not as equivalent as I would like
-par(mfrow=c(2,5))
 
+par(mfrow=c(2,5))
 for(i in 1:10){
   behaviour_name_plot(to_plot[i])
 }

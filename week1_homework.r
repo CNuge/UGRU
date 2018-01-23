@@ -206,14 +206,19 @@ typeof(to_plot) #its a list
 to_plot[1] #this gives me a labelled dataframe 'aardvark'
 to_plot[[1]] #this gives me just a list without the 'aardvark' label
 
+# based off that, calling the single slice, I can get the label
+names(to_plot[1]) #this gives me aardvark
+names(to_plot[[1]]) # this gives me "Standing" and "Resting"
 
+# but when I use it in an lapply with an anonymous function, the 
+# individuals rows (x in the function) don't have the labels
+# so names(x[1]) gives me 'standing' and names(x) also gives me 'standing'!
+# why can't I access the label in the same way I did with the individual slices
+# this disconnect between behaviour in the apply and outside is not intuitive
 
-
-
-
-
-
-
+par(mfrow=c(2,5))
+lapply(to_plot, 
+	function(x) { plot(x[[1]], main=names(x[1]))})
 
 
 

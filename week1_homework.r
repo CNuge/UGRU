@@ -80,7 +80,8 @@ serengeti.Species2 = split(serengeti[10:11], serengeti$Species)
 par(mfrow=c(2,5))
  
 #Plots 1-10 with name
-lapply(names(serengeti.Species2[1:10]), function(x) plot(serengeti.Species2[[x]], main = x))
+lapply( names(serengeti.Species2[1:10]), 
+		function(x) plot(serengeti.Species2[[x]], main = x))
 
 
 ##############
@@ -144,8 +145,7 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 
 # mapply is format: mapply(function, data)
 # lapply is format: lapply(data, function)
-#why are these opposite?
-
+# why are these opposite?
 
 # mapply is also not as intuitive as a loop, if I wasn't comfortable with
 # the vernacular of R I'm not sure I would have been able to google the right 
@@ -154,6 +154,22 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 # I can't apply my function 'as is'... I needed to rewrite the function to
 # accomidate the names() usage... so although the mapply is efficient, it 
 # requires more 'upstream work' then a good old for loop.
+
+
+# Cam's morals of the story:
+# 1. The apply family is fun R specific syntactic sugar (which is a tradeoff)
+# using the syntactic sugar of R provides the ability to project code along a series 
+# or dataframe all in one line. This is concise and appears to carry a speed advantage,
+# but comes at the cost of being more cryptic and not as intuitive for the
+# readers of the code (opposed to the writers of the code).
+
+# 2. x[i] vs x[[i]]
+# here is the official documentation on it:
+# https://cran.r-project.org/doc/manuals/R-lang.html#Indexing
+# Whoever wrote R should have just made dictonaries/hash tables a core component of the language
+# Having x[i] return an object with a label on it causes more problems then it solves
+# and makes the data structure seem clunky.
+
 
 
 

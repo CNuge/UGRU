@@ -215,12 +215,17 @@ names(to_plot[[1]]) # this gives me "Standing" and "Resting"
 # so names(x[1]) gives me 'standing' and names(x) also gives me 'standing'!
 # why can't I access the label in the same way I did with the individual slices
 # this disconnect between behaviour in the apply and outside is not intuitive
+# lapply works at the level below the labels, so we can't directly use the labels
+# within the lapply, we need to give the function another source to access them from
 
 par(mfrow=c(2,5))
 lapply(to_plot, 
 	function(x) { plot(x[[1]], main=names(x[1]))})
 
 
+# here is the trick pass the higher up list to the lapply, and call the external list
+# in my opinion there shouldn't need to be a trick though! Trick are inherently complex
 
-
+lapply(names(to_plot), 
+	function(x) { plot(to_plot[[x]], main=names(to_plot[x]))})
 

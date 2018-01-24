@@ -14,7 +14,7 @@ to_plot = plot_by_species[1:10] #so I don't forget to subset
 ###############
 
 par(mfrow=c(2,5))
-lapply(plot_by_species[1:10], plot)
+lapply(plot_by_species[1:10], summary)
 
 ##############
 #

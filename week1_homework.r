@@ -147,14 +147,6 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 # lapply is format: lapply(data, function)
 # why are these opposite?
 
-# mapply is also not as intuitive as a loop, if I wasn't comfortable with
-# the vernacular of R I'm not sure I would have been able to google the right 
-# questions!
-
-# I can't apply my function 'as is'... I needed to rewrite the function to
-# accomidate the names() usage... so although the mapply is efficient, it 
-# requires more 'upstream work' then a good old for loop.
-
 
 # Cam yelling from atop a soapbox:
 
@@ -172,7 +164,7 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 # is that I have to do extra work to get plain data... the labels are more 
 # 'sticky' than common sense would suggest they should be
 
-# For example the simplest labelled list possible:
+# For example, working with the simplest labelled list possible:
 
 # a list of 3 numbers and their corresponding labels
 my_list = c(1,2,3)
@@ -184,7 +176,7 @@ my_list
 
 my_list['a'] # in Cam's utopian R this would just return a plain 1
 # but a alas the 'a' label is stuck on top
-# paradoxically the type tells me it is a number :l 
+# paradoxically the type tells me it is a number :/
 typeof(my_list['a'])	
 # but that seems not true because for practical purposes it behaves like a one member list!
 # see below when I do math with the data in the  first position of my list,
@@ -214,8 +206,10 @@ names(to_plot[[1]]) # this gives me "Standing" and "Resting"
 # individuals rows (x in the function) don't have the labels
 # so names(x[1]) gives me 'standing' and names(x) also gives me 'standing'!
 # why can't I access the label in the same way I did with the individual slices
-# this disconnect between behaviour in the apply and outside is not intuitive
+# this disconnect between behaviour in the apply and outside is not intuitive.
 # lapply works at the level below the labels, so we can't directly use the labels
+# this bothers me because it goes against the convention I was just forced by R
+# to adopt in order to work with the labelled list's data in the first place
 # within the lapply, we need to give the function another source to access them from
 
 par(mfrow=c(2,5))
@@ -223,9 +217,38 @@ lapply(to_plot,
 	function(x) { plot(x[[1]], main=names(x[1]))})
 
 
-# here is the trick pass the higher up list to the lapply, and call the external list
+# here is the trick pass the higher up list to the lapply names(the_list) , 
+# and call the lower listthrough an external call to its variable.
 # in my opinion there shouldn't need to be a trick though! Trick are inherently complex
 
 lapply(names(to_plot), 
 	function(x) { plot(to_plot[[x]], main=names(to_plot[x]))})
 
+# 4. I guess the take home message here is that although working with the labelled lists
+# in lapply is possible, it was likely not the intended use of the function and therefore
+# the syntax required to make it works is a bit unintuitive. Through Jonathan and Nia's 
+# discussion answers, I was able to bettwe understand how one can use lapply with
+# home made functions, by leveraging the internal anonymous function to 
+
+
+
+# 5. I have stumbled upon the real strength of the mapply while doing my homework!
+# here I demonstrate this powerful trope with the iris dataset:
+
+# For the point of demonstration, lets say that the petals in the dataset are all triangles
+# and I want to find the area of the petals. With the length of the petal being the base, and
+# the width of the petals being the height.
+
+# I write a function that calculates that, and mapply it to the whole dataframe at once
+head(iris) #recall the columns
+
+# my triangle area function
+tri_area = function(base, height){
+	(base * height) / 2 
+}
+
+# here we make a new column Petal.Area using the mapply to run the tri_area function for all 
+# the rows in the dataframe at once. mapply lets you make a column or columns the input,
+# and create a column that is the output! Thats neat!
+
+iris$Petal.Area = mapply(tri_area , iris$Petal.Length , iris$Petal.Width )

@@ -218,7 +218,7 @@ lapply(to_plot,
 
 
 # here is the trick pass the higher up list to the lapply names(the_list) , 
-# and call the lower listthrough an external call to its variable.
+# and call the lower list through an external call to its variable.
 # in my opinion there shouldn't need to be a trick though! Trick are inherently complex
 
 lapply(names(to_plot), 
@@ -226,10 +226,13 @@ lapply(names(to_plot),
 
 # 4. I guess the take home message here is that although working with the labelled lists
 # in lapply is possible, it was likely not the intended use of the function and therefore
-# the syntax required to make it works is a bit unintuitive. Through Jonathan and Nia's 
-# discussion answers, I was able to bettwe understand how one can use lapply with
-# home made functions, by leveraging the internal anonymous function to 
+# the syntax required to make it works is a bit unintuitive. I think the best use of lapply
+# is to use R's built in functions across a list of dataframes or other things
+# i.e. to get a list of means column z in each of the datframes in the list
 
+# Through Jonathan and Nia's discussion answers, I was able to better understand how one can use lapply with
+# home made functions, by leveraging the internal anonymous function to apply it to a list
+# containg complex data structures (not just numbers) at each position
 
 
 # 5. I have stumbled upon the real strength of the mapply while doing my homework!

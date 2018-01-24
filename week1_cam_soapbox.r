@@ -34,7 +34,7 @@ to_plot = plot_by_species[1:10] #so I don't forget to subset
 # For example, working with the simplest labelled list possible:
 
 # a list of 3 numbers and their corresponding labels
-my_list = c(1,2,3)
+my_list = list(1,2,3)
 names(my_list)= c('a', 'b', 'c')
 
 my_list

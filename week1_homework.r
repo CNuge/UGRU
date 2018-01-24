@@ -40,8 +40,8 @@ lapply(plot_by_species[1:10], summary)
 ##This for loop works like a dream!!
 
 par(mfrow=c(2,5))
-for(i in 1:10){
-  plot(plot_by_species[[i]], main = names(plot_by_species[i]))
+for(i in 1:length(to_plot)){
+  plot(to_plot[[i]], main = names(to_plot[i]))
 }
 
 ##############
@@ -78,9 +78,10 @@ lapply(plot_by_species[1:10],
 serengeti.Species2 = split(serengeti[10:11], serengeti$Species)
  
 #Set up multi-paneled plot
-par(mfrow=c(2,5))
+
  
 #Plots 1-10 with name
+par(mfrow=c(2,5))
 lapply( names(serengeti.Species2[1:10]), 
 		function(x) plot(serengeti.Species2[[x]], main = x))
 

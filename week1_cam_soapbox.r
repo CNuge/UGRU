@@ -7,6 +7,14 @@ plot_by_species = split(serengeti[10:11], serengeti$Species) #split by species
 to_plot = plot_by_species[1:10] #so I don't forget to subset
 
 
+# after thinking about my comments below I was able to pick up the pattern that
+# was causing me trouble. I wrote a blog post on it and posted it here:
+# https://camnugent.wordpress.com/2018/01/24/tales-from-the-r-users-group-labeled-lists-lapply-and-the-single-and-double-slice/
+
+
+
+
+
 # Cam yelling from atop a soapbox:
 
 # 1. The apply family is fun R specific syntactic sugar (which is a tradeoff)
@@ -42,6 +50,8 @@ typeof(my_list['a'])
 # I get a LABELLED NUMBER! ugh.
 my_list['a'] + 3
 
+
+names(my_list['a'] + 3)
 # long story long the [[i]] should be the default, and the labelled the special case.
 # in most instance a naked number makes more sense
 my_list[['a']] # this should be what my_list['a'] returns
@@ -73,7 +83,7 @@ names(to_plot[[1]]) # this gives me "Standing" and "Resting"
 
 par(mfrow=c(2,5))
 lapply(to_plot, 
-  function(x) { plot(x[[1]], main=names(x[1]))})
+  function(x) { plot(x[[1]], main=names(x[1]) )})
 
 
 # here is the trick pass the higher up list to the lapply names(the_list) , 

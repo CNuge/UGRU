@@ -184,6 +184,23 @@ mapply(apply_behaviour_name_plot, to_plot, names(to_plot))
 # Homework 02 -----
 ### Pair: with a split-lapply construct, for each site compute the average behaviours for the different species
 ### and save this to a new object
+ser_site = split(serengeti , serengeti$SiteID)
+
+head(ser_site)
+
+site = ser_site[[1]]
+site
+lapply(ex, mean)
+
+
+averages_per_site = function(site){
+ lapply(site,mean)
+}
+
+list_o_means = lapply(ser_site, function(x){ averages_per_site(x)} )
+
+
+
 ### Pair: with a split-lapply construct, plot the average resting versus standing for all species for the  
 ### first 10 sites, and also plot the regression line
 ### Pair: with a split-lapply construct, create an object that has the slopes of that relationship for 

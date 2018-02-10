@@ -1,0 +1,179 @@
+---
+title: "about R Markdown"
+date: "`r paste0(format(Sys.time(), '%d %B %Y'))`"
+author: 'Kevin Cazelles, post-doc, McCann Lab, [<i class="fa fa-github fa-2x" aria-hidden="true"></i>](https://github.com/KevCaz/aboutRMarkdown)'
+# lang: french
+output:
+  ioslides_presentation:
+    incremental: true
+    widescreen: true
+    includes:
+      in_header: kcheader.html
+      #logo: ./img/logo.png
+---
+
+
+```{r settingup, echo=FALSE, message=F}
+knitr::opts_chunk$set(
+  comment = "R>>"
+)
+knitr::read_chunk("code.R")
+```
+
+
+# R Markdown
+
+## R + Markdown
+
+- R: data, analyses, figures.
+
+- What about Markdown?
+
+  - [Wikipedia says](https://en.wikipedia.org/wiki/Markdown): "Markdown is a lightweight markup language with plain text formatting syntax."
+
+  - https://daringfireball.net/projects/markdown/
+
+
+## Markdown
+
+> Markdown is intended to be as easy-to-read and easy-to-write as is feasible.
+
+`html`
+
+```html
+<a href="https://github.com/KevCaz/aboutRMarkdown">My repo</a>
+```
+
+`markdown`
+
+```markdown
+[My repo](https://github.com/KevCaz/aboutRMarkdown)
+```
+
+
+## Markdown
+
+`html`
+
+```html
+<ol>
+  <li> items1 </li>
+  <li> items2 </li>
+  <li> items3 </li>
+</ol>
+```
+
+`markdown`
+
+```markdown
+1. items1
+2. items2
+3. items3
+```
+
+## Markdown *et al.*
+
+- [GitHub Flavored Markdown (GFM)](https://help.github.com/articles/github-flavored-markdown/)
+- [Kramdown](http://kramdown.gettalong.org/syntax.HTML#math-blocks)
+- [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/)
+- [Multi Markdow](https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide#math-support)
+- [Pandoc Markdown](http://pandoc.org/README.HTML#pandocs-markdown)
+
+
+## Markdown suffered from bad parenting
+
+https://blog.codinghorror.com/responsible-open-source-code-parenting/
+
+
+> "I despise what you've done with Text::Markdown, which is to more or less make it an alias for MultiMarkdown, almost every part of which I disagree with in terms of syntax additions." (John Gruber, on 15 Mar 2008)
+
+
+## CommonMark
+
+http://commonmark.org/
+
+> "A strongly defined, highly compatible specification of Markdow."
+
+## Markdown everywhere
+
+- Static Website generator ([jekyll](https://jekyllrb.com/), [hugo](https://gohugo.io/), ...)
+- R markdown
+- [blogdown](https://bookdown.org/yihui/blogdown/) written using [bookdown](https://bookdown.org/yihui/bookdown/)
+- [Slack](https://slack.com/)
+- Github
+- [Markdown here](https://markdown-here.com/)
+
+## Mail
+
+<video width="90%" controls>
+ <source src="vid/mail.webm" type="video/webm">
+ Your browser does not support the video tag.
+</video>
+
+
+# R + markdown, how?
+
+## One package to rule them all
+
+https://rmarkdown.rstudio.com/
+
+
+## R package `knitr`
+
+https://yihui.name/knitr/
+
+<br>
+
+\`\`\`{R name, options}
+
+your_code
+
+\`\`\`
+
+
+## `yaml`
+
+- [Wikipedia says](https://en.wikipedia.org/wiki/YAML): "*YAML (YAML Ain't Markup Language) is a human-readable data serialization language.*"
+
+```YAML
+author: Bill June
+data: 2018-11-03
+```
+
+- metadata of your file
+
+## `pandoc`
+
+
+https://pandoc.org/
+
+
+## So
+
+1. writing `.Rmd` document
+2. Click to obtain your final document (call `render()`)
+3. `knitr` convert code chunk
+4. you obtain a `.md` version
+5. this `.md` file + yaml ==> pandoc
+
+
+## Dynamic document
+
+https://cran.r-project.org/web/packages/rmarkdown/
+
+
+## Analysis
+
+```{R code1}
+<<code1>>
+```
+
+## Figures
+
+```{R codechunk2, fig.width = 10}
+seqx <- seq(0,6*pi, 0.02)
+plot(seqx, cos(seqx))
+```
+
+
+# Let's practice

@@ -1,0 +1,74 @@
+---
+title: "erin_demo"
+author: "cam"
+date: '2018-02-16'
+output: html_document
+---
+
+# R Markdown Demo
+
+This is a **demonstration** to show you how R Markdown works. Here is a helpful [link](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf) to find out more about R Markdown.
+
+## 1. Loading necessary packages
+```{r, message = FALSE}
+library(readr)
+library(dplyr)
+library(visreg)
+```
+
+{r,results='hide'} would let you hide the results
+
+{r,echo = FALSE} to hide the code 
+
+\$ to get just a plain dollar sign
+
+## 2. Packages needed for R markdown
+```{r}
+library(rmarkdown)
+library(knitr)
+```
+## 3. Setting working directory
+```{r}
+setwd("/Users/Cam/Desktop/Code/UGRU/jupyter_notebook")
+```
+
+## 4. We are going to use the dataset "ToothGrowth", which looks at the effect of VitC on tooth growth in Guinea Pigs. Information can be found here:
+?ToothGrowth
+
+#5. Get dimensions of dataframe
+dim(ToothGrowth)
+
+#6. Summarize data
+summary(ToothGrowth)
+
+#7. It looks like we need to change supplement type to a factor
+ToothGrowth$supp <- as.factor(ToothGrowth$supp)
+
+#8. Let's gather some basic descriptive stats. What is the mean and standard error for tooth length?
+mean(ToothGrowth$len)
+sqrt(var(ToothGrowth$len)/length(ToothGrowth$len))
+
+#9. Lets look at the effect of dosage on tooth length
+summary(lm1 <- lm(len ~ dose, data=ToothGrowth))
+
+#10. Check diagnostics
+par(mfrow=c(2,2))
+plot(lm1)
+par(mfrow=c(1,1))
+hist(resid(lm1))
+
+#11. Plot this relationship
+visreg(lm1, "dose")
+
+#12. Lets try another model to look at the effect of the type of supplement on tooth length
+summary(lm2 <- lm(len ~ supp, data=ToothGrowth))
+
+#13. Plot this relationship
+visreg(lm2, "supp")
+
+#14. How about an interaction between dose and supplement type?
+summary(lm3 <- lm(len ~ dose*supp, data=ToothGrowth))
+
+#15. Plot this relationship
+visreg(lm3, "dose", by="supp")
+

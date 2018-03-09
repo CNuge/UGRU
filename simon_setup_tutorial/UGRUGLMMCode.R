@@ -96,6 +96,22 @@ plot(resid(reg.glm) ~ fitted(reg.glm))
 summary(reg.glm)
 
 # But what about those things called random effects? ----
+#######
+#mixed effect is a situation where there are both fixed and random effects
+#fixed effects model is a statistical model in which the model parameters 
+	#are fixed or non-random quantities.
+# random effects assumes that the data being analysed are drawn 
+	#from a hierarchy of different populations whose differences 
+	#relate to that hierarchy
+
+# biostatisticians use "fixed" and "random" effects to respectively 
+# refer to the population-average and subject-specific effects 
+# (and where the latter are generally assumed to be unknown, latent variables).
+
+
+#######
+
+
 # how do we decide when to use them? 
 # Simplest Model as GLiM
 reg.glm = glm(Adj.Diff.z ~ Adj.Avg.Abund.z, data = mice, family = gaussian, na.action = na.omit)

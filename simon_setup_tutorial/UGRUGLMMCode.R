@@ -49,7 +49,7 @@ mice$Adj.Diff.z #this has been centered around 0 within a larger data set
 #that is why the mean isn't 0, simon has given us a subset of the data
 
 ### Running Models ----
-# note: I already standardized my variables using the scale() function, as not doing this foten causes the models to fail to converge
+# note: I already standardized my variables using the scale() function, as not doing this often causes the models to fail to converge
 ### first model: Whether local relative density changes based on annual regional raw density
 # starting with simple intercept model
 glm.intercept = glm(Adj.Diff.z ~ 1, data = mice, na.action = na.omit)
@@ -61,8 +61,17 @@ summary(reg.glm)
 
 ## check that the assumptions of a glm are met
 # assessing model diagnostics by plotting the model ----
+par(mfrow=c(2,2))
 plot(reg.glm)
+
 # seems pretty normal, and as though there are not outliers. But what if this wasn't the case?
+
+
+########
+# The histogram below is a different way to look at the data in a qq plot
+# seeing if the residuals or normally distributed
+########
+
 
 # Check if the residuals of the model are normally distributed
 #histogram of residuals
@@ -72,6 +81,14 @@ hist(resid(reg.glm))
 # or maybe use a different type of model (GLIM)
 
 # check for homoscedasticity by plotting residuals against fitted values
+
+########
+#don't want to see structure in the data
+# if you see a 'cone shape' from left to right, it is often a good idea
+# to do something like a log transformation
+########
+
+
 plot(resid(reg.glm) ~ fitted(reg.glm))
 # definitely some structure in these errors, could fix with a good transformation but not to worry this isn't a real analysis
 

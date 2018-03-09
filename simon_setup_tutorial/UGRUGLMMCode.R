@@ -108,6 +108,7 @@ summary(reg.glm)
 # refer to the population-average and subject-specific effects 
 # (and where the latter are generally assumed to be unknown, latent variables).
 
+# general rule is 5 or more levels in the data is treated as a random effect
 
 #######
 
@@ -136,6 +137,8 @@ plot(resid(reg.glmer.year) ~ mice$First.Line)
 # appears to be some structure so add as a random effect
 
 # Creating second GLMER including two random effects
+
+# (1|Year) <- this is the syntax for telling the program it is a random effect
 reg.glmer.year.first.line = glmer(Adj.Diff.z ~ Adj.Avg.Abund.z + (1|Year) + (1|First.Line), data = mice, family = gaussian, na.action = na.omit)
 
 

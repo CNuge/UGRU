@@ -1,4 +1,4 @@
-slibrary(tidyverse)
+library(tidyverse)
 library(viridis)
 
 serengeti = read_csv("http://datadryad.org/bitstream/handle/10255/dryad.86348/consensus_data.csv")

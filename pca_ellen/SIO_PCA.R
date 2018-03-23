@@ -19,26 +19,64 @@ min.isl = islands %>% select(Min.Wave,Min.SST,Min.Chl,Min.PAR)
 #for practical purposes, let's just look at the means. 
 
 
-#Let's (kind of!) roll!
-pca.1=prcomp(mean.isl)
+# this does 4 principal components because there are 4 paramaters passed in to 
+# the mean.isl dataframe. 
+# To control the number of components returned, you can pass the following
+# params into the prcomp function
+
+
+#tol: a value indicating the magnitude below which components
+#          should be omitted. (Components are omitted if their standard
+#          deviations are less than or equal to ‘tol’ times the standard
+#          deviation of the first component.)  With the default null
+#          setting, no components are omitted (unless ‘rank.’ is
+#          specified less than ‘min(dim(x))’.).  Other settings for tol
+#          could be ‘tol = 0’ or ‘tol = sqrt(.Machine$double.eps)’,
+#          which would omit essentially constant components.
+
+#  rank.: optionally, a number specifying the maximal rank, i.e.,
+#          maximal number of principal components to be used.  Can be
+#          set as alternative or in addition to ‘tol’, useful notably
+#          when the desired rank is considerably smaller than the
+#          dimensions of the matrix.
+
+
+
+
+
+pca.1=prcomp(mean.isl, scale=TRUE, center=TRUE)
 pca.1
 summary(pca.1)
 
-#rotation = eigenvectors; relationship of each variable to the PC, ie the 'weight' of how much the factor contributes to the PC. Notice that Wave's weight coefficient  is HUUUGELY larger than the other factors!
+
+# rotation = eigenvectors
+# relationship of each variable to the PC, 
+# ie the 'weight' of how much the factor contributes to the PC.
+# Notice that Wave's weight coefficient  is HUUUGELY larger than the other factors!
 #Visualize it!
 par(mfrow=c(1,1))
 biplot(pca.1)
-#as expected, Mean.Wave is stronger than other variables in grouping islands, given the strong negative eigenvector
-#prop of variance explained by each PC. PC1=most of it. Confirmed with Screeplot. 
+# as expected, Mean.Wave is stronger than other variables in grouping islands, 
+# given the strong negative eigenvector
+# prop of variance explained by each PC. PC1=most of it. Confirmed with Screeplot. 
+# this breaks down the perc variance explained by components
 screeplot(pca.1)
 
-#But hold up! We have forgotten to standardize our data! Recall that all of our variables have very different units! Let's normalize them. If we don't do this = meaningless!
-#Also, recall the results with non-standardized data with Wave being (basically) the only thing that mattered. Why?
-(max(Mean.Wave)-min(Mean.Wave));(max(Mean.SST)-min(Mean.SST));(max(Mean.Chl)-min(Mean.Chl));(max(Mean.PAR)-min(Mean.PAR))
+#But hold up! We have forgotten to standardize our data! 
+#Recall that all of our variables have very different units! 
+#Let's normalize them. If we don't do this = meaningless!
+#Also, recall the results with non-standardized data with 
+#Wave being (basically) the only thing that mattered. Why?
+(max(Mean.Wave)-min(Mean.Wave))
+(max(Mean.SST)-min(Mean.SST))
+(max(Mean.Chl)-min(Mean.Chl))
+(max(Mean.PAR)-min(Mean.PAR))
 #Becuase wave has a disproportionally large range compared to other factors! Then PAR, then SST, and Chl barely varies. This is mirrors the size of the eigenvectors!
 
 #Now, let's do this the right way!
-pca.2=prcomp(mean.isl,scale=TRUE,center=TRUE);pca.2;summary(pca.2) 
+pca.2=prcomp(mean.isl,scale=TRUE,center=TRUE)
+pca.2
+summary(pca.2) 
 #what is the biplot likely to look like?
 biplot(pca.2)
 #Exactly what we'd expect! PC1 has Wave, SST having large weights, approx. equal and opposite (and since neither is important in PC2, we expect them to fall roughly around y=0). Then on PC2, PAR and Chl are most impt., both are negative, and affected a little bit by PC1 (in opposite ways.).
@@ -59,7 +97,9 @@ scatterplotMatrix(log.norm.data.islands)
 #install.packages('vegan')
 library(vegan)
 
-pca.5=rda(mean.isl,scale=T,center=T,scaling=1);pca.5#;summary(pca.5)
+pca.5=rda(mean.isl,scale=T,center=T,scaling=1)
+pca.5#
+summary(pca.5)
 #But...the eigenvalues are different than what they were for the prcomp function! Has to do with scaling. Go here: http://cran.r-project.org/web/packages/vegan/vignettes/decision-vegan.pdf
 #Still, it's just scaling - same result. Proportions of variation, proportional loadings=same. 
 biplot(pca.5)
@@ -78,13 +118,15 @@ scl=3
 colvec=c(2,3,5,6,7)
 plot(pca.5,type='n',scaling=scl,ylim=c(-2,.5),xlim=c(-2,2))
 with(name.isl,points(pca.5,display='sites',type='p',col=colvec[REGION],scaling=scl,pch=21,bg=colvec[REGION]),ylim=c(-2,.5),xlim=c(-2,2))
-par(new=T);biplot(pca.5,display='species',type='t',ylim=c(-2,.5),xlim=c(-2,2),scaling=scl,col='1',cex=.8)
+par(new=T)
+biplot(pca.5,display='species',type='t',ylim=c(-2,.5),xlim=c(-2,2),scaling=scl,col='1',cex=.8)
 with(pca.5,legend('bottomleft',legend=levels(REGION),bty='n',col=colvec,pch=21,pt.bg=colvec))
 #ordihull(pca.6,REGION,col='blue',ylim=c(-2,.5),xlim=c(-2,2),scaling=scl)
 with(name.isl,ordiellipse(pca.5,REGION,kind='se',conf=0.95,label=F,scaling=scl,ylim=c(-2,.5),xlim=c(-2,2),col='blue'))#ordiellipse =dispersion ellipse using sdevs
 #with(name.isl,ordispider(pca.6,REGION,label=F,scaling=scl,ylim=c(-2,.5),xlim=c(-2,2),col='blue'))#links points to a ceteroid
 
-########http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf; http://cran.r-project.org/web/packages/\
+########http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf
+ http://cran.r-project.org/web/packages/\
 
 ######## try it with the mins/maxes
 

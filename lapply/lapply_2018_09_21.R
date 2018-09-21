@@ -244,9 +244,7 @@ for (i in unique(serengeti_wide$Year)){
 
 # Solution
 
-
 par(mfrow = c(2,2))
-
 
 by_year = split(serengeti_wide, serengeti_wide$Year)
 
@@ -259,20 +257,14 @@ m_v_f = function(df){
       abline(lionregr)
 }
 
-
 lapply(by_year, m_v_f)
 
 
+par(mfrow = c(2,2))
 
-
-
-
-
-# lapply magic ----------
-
-# remember pseudocode for "for" loop
-for (i in XXXXX){
-  do_something_with(i)
+for (i in unique(serengeti_wide$Year)){
+  take_vals = serengeti_wide[serengeti_wide$Year == i,]
+  m_v_f(take_vals)
 }
 
 # lapply does similar loop, but without all the set-up
@@ -280,3 +272,24 @@ lapply(XXXXX, do_something)
 
 ### Homework: generalize the function male_vs_female to any two species, and plot the relationship per year for elephant and zebra.
 ### Hint: your function will have at least 3 arguments, instead of just one.
+
+#karl's method:
+m_v_f_i = function(i){
+  plot(I(lionMale^0.25) ~ I(lionFemale^0.25), 
+       data = serengeti_wide, 
+       subset = serengeti_wide$Year == i)
+  lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
+              data = serengeti_wide, 
+              subset = serengeti_wide$Year == i)
+}
+
+
+par(mfrow = c(2,2))
+for (i in unique(serengeti_wide$Year)){
+  m_v_f_i(i)
+}
+
+par(mfrow = c(2,2))
+lapply(unique(serengeti_wide$Year), m_v_f_i)
+
+#downside here is that the varibale name for the dataframe is hardcoded into the function

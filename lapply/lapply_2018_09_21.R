@@ -250,7 +250,7 @@ par(mfrow = c(2,2))
 
 by_year = split(serengeti_wide, serengeti_wide$Year)
 
-plot_year = function(df){
+m_v_f = function(df){
       plot(I(lionMale^0.25) ~ I(lionFemale^0.25), 
         data = df)
       lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
@@ -260,7 +260,7 @@ plot_year = function(df){
 }
 
 
-lapply(by_year, plot_year)
+lapply(by_year, m_v_f)
 
 
 

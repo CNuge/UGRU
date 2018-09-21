@@ -43,6 +43,12 @@ serengeti_wide = serengeti %>% mutate(Year = year(DateTime)) %>%
   spread(Species, Total) 
 # create a sample by species community composition
 
+
+serengeti
+serengeti$Year = year(serengeti$DateTime)
+serengeti$Count = as.numeric(serengeti$Count)
+
+
 #first two just equivalent to:
 #serengeti$Year = year(serengeti$DateTime)
 #serengeti$Count = as.numeric(serengeti$Count)
@@ -88,9 +94,13 @@ plot(sqrt(lionMale) ~ sqrt(lionFemale),
 
 # looks a lot better, continue with this
 
-lionregr = lm(I(lionMale^0.25) ~ I(lionFemale^0.25),
+lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
               data = serengeti_wide, 
               subset = serengeti_wide$Year == 2010)
+
+lionregr
+summary(lionregr)
+
 # just an illustration of the power of using the formula framework
 
 # basic statistics
@@ -103,10 +113,53 @@ abline(lionregr)
 ### pairs: Is there a similar relationship between male and female lions across years?
 
 # Solution:
+#how many years
+unique(serengeti_wide$Year)
+
+
+#easiest
+lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
+              data = serengeti_wide, 
+              subset = serengeti_wide$Year == 2010)
+
+lionregr
+summary(lionregr)
 
 
 
+lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
+              data = serengeti_wide, 
+              subset = serengeti_wide$Year == 2011)
 
+lionregr
+summary(lionregr)
+
+
+lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
+              data = serengeti_wide, 
+              subset = serengeti_wide$Year == 2012)
+
+lionregr
+summary(lionregr)
+
+
+lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
+              data = serengeti_wide, 
+              subset = serengeti_wide$Year == 2013)
+
+lionregr
+summary(lionregr)
+
+
+
+for (i in unique(serengeti_wide$Year)){
+  lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
+              data = serengeti_wide, 
+              subset = serengeti_wide$Year == i)
+
+  lionregr
+  print(summary(lionregr))
+}
 
 
 

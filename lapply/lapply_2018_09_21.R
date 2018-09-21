@@ -66,6 +66,9 @@ serengeti_wide
 
 # Simple statistical analysis ---------
 
+serengeti_wide$lionMale[1:100]
+serengeti_wide$lionFemale[1:100]
+
 # for simplicity, analysis per year
 # start with 2010
 plot(lionMale ~ lionFemale, 
@@ -73,9 +76,16 @@ plot(lionMale ~ lionFemale,
      subset = serengeti_wide$Year == 2010)
 # lots of variability, let's try with a square-root transformation
 
+#this is a roundabout way of doing a square root
 plot(I(lionMale^0.25) ~ I(lionFemale^0.25), 
      data = serengeti_wide, 
      subset = serengeti_wide$Year == 2010)
+
+#little nicer:
+plot(sqrt(lionMale) ~ sqrt(lionFemale), 
+     data = serengeti_wide, 
+     subset = serengeti
+
 # looks a lot better, continue with this
 
 lionregr = lm(I(lionMale^0.25) ~ I(lionFemale^0.25),

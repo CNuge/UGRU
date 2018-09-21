@@ -82,24 +82,22 @@ plot(lionMale ~ lionFemale,
      subset = serengeti_wide$Year == 2010)
 # lots of variability, let's try with a square-root transformation
 
-#this is a roundabout way of doing a square root
-plot(I(lionMale^0.25) ~ I(lionFemale^0.25), 
-     data = serengeti_wide, 
-     subset = serengeti_wide$Year == 2010)
-
-#little nicer:
-plot(sqrt(lionMale) ~ sqrt(lionFemale), 
-     data = serengeti_wide, 
-     subset = serengeti
 
 # looks a lot better, continue with this
-
 lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
               data = serengeti_wide, 
               subset = serengeti_wide$Year == 2010)
 
 lionregr
 summary(lionregr)
+
+#this is a roundabout way of doing a square root
+plot(I(lionMale^0.25) ~ I(lionFemale^0.25), 
+     data = serengeti_wide, 
+     subset = serengeti_wide$Year == 2010)
+
+
+abline(lionregr)
 
 # just an illustration of the power of using the formula framework
 
@@ -151,7 +149,6 @@ lionregr
 summary(lionregr)
 
 
-
 for (i in unique(serengeti_wide$Year)){
   lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
               data = serengeti_wide, 
@@ -162,34 +159,34 @@ for (i in unique(serengeti_wide$Year)){
 }
 
 
+lionregr = lm(I(lionMale^.5) ~ I(lionFemale^.5),
+            data = serengeti_wide, 
+            subset = serengeti_wide$Year == 2011)
+
+lionregr
+summary(lionregr)
+
+
+
+#little nicer:
+
+plot(I(lionMale^0.25) ~ I(lionFemale^0.25), 
+     data = serengeti_wide, 
+     subset = serengeti_wide$Year == 2010)
+
+
+for (i in unique(serengeti_wide$Year)){
+  lionregr = lm(I(lionMale^.5) ~ I(lionFemale^.5),
+              data = serengeti_wide, 
+              subset = serengeti_wide$Year == i)
+
+  lionregr
+  print(summary(lionregr))
+}
 
 
 
 
-
-### Pairs: You think that square root is not the appropriate transformation, but that it should be a root transformation. Adjust your code accordingly.
-
-# Solution
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### You peaked!
-
-
-
-
-# Problem with this approach?
 
 
 
@@ -205,16 +202,26 @@ for (i in unique(serengeti_wide$Year)){
 # create a figure of male lion density as a function of female lion density
 # and add the regression line
 
-for (i in XXXXX){
-  plot(XXXX)
-  abline(XXXXX)
-}
 
 ### Pairs: replace the XXXXX with the correct code
 
 # Solution
 
 
+par(mfrow = c(2,2))
+
+for (i in unique(serengeti_wide$Year)){
+  
+  plot(I(lionMale^0.25) ~ I(lionFemale^0.25), 
+       data = serengeti_wide, 
+       subset = serengeti_wide$Year == i)
+  lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
+              data = serengeti_wide, 
+              subset = serengeti_wide$Year == i)
+
+  
+  abline(lionregr)
+}
 
 
 
@@ -237,6 +244,23 @@ for (i in XXXXX){
 
 # Solution
 
+
+par(mfrow = c(2,2))
+
+
+by_year = split(serengeti_wide, serengeti_wide$Year)
+
+plot_year = function(df){
+      plot(I(lionMale^0.25) ~ I(lionFemale^0.25), 
+        data = df)
+      lionregr = lm(sqrt(lionMale) ~ sqrt(lionFemale),
+                data = df)
+
+      abline(lionregr)
+}
+
+
+lapply(by_year, plot_year)
 
 
 

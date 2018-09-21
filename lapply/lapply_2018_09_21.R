@@ -43,11 +43,21 @@ serengeti_wide = serengeti %>% mutate(Year = year(DateTime)) %>%
   spread(Species, Total) 
 # create a sample by species community composition
 
-
+#first two just equivalent to:
 #serengeti$Year = year(serengeti$DateTime)
 #serengeti$Count = as.numeric(serengeti$Count)
+#then grouping by the year and species,
+# summarize the data by counts
+# ungroup to remove the group labels
+#then spread the data to wide format so that there is a unique column
+# for each of the species, not present are auto filled with NA
 
 serengeti_wide[is.na(serengeti_wide)] = 0 
+#we then fill the NA with 0 
+#note there has been some loss of information here because
+#the as.numeric(serengeti$Count) removed the "11-50" entries... 
+#probably best way to approach it 
+
 
 # NA are basically absent species
 

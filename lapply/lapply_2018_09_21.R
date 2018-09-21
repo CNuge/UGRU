@@ -247,13 +247,6 @@ for (i in unique(serengeti_wide$Year)){
 par(mfrow = c(2,2))
 
 
-for (i in unique(serengeti_wide$Year)){
-  take_vals = serengeti_wide[serengeti_wide$Year == i,]
-  m_v_f(take_vals)
-}
-
-by_year = split(serengeti_wide, serengeti_wide$Year)
-
 m_v_f = function(df){
       plot(I(lionMale^0.25) ~ I(lionFemale^0.25), 
         data = df)
@@ -262,6 +255,13 @@ m_v_f = function(df){
 
       abline(lionregr)
 }
+
+for (i in unique(serengeti_wide$Year)){
+  take_vals = serengeti_wide[serengeti_wide$Year == i,]
+  m_v_f(take_vals)
+}
+
+by_year = split(serengeti_wide, serengeti_wide$Year)
 
 lapply(by_year, m_v_f)
 

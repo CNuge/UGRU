@@ -8,7 +8,7 @@
 ##
 ##############################
 
-# install.packages("tidyverse")
+#install.packages("tidyverse")
 # uncomment the above line if tidyverse is not installed yet
 library(tidyverse)
 
@@ -43,10 +43,16 @@ serengeti_wide = serengeti %>% mutate(Year = year(DateTime)) %>%
   spread(Species, Total) 
 # create a sample by species community composition
 
+
+#serengeti$Year = year(serengeti$DateTime)
+#serengeti$Count = as.numeric(serengeti$Count)
+
 serengeti_wide[is.na(serengeti_wide)] = 0 
+
 # NA are basically absent species
 
 summary(serengeti_wide) # check if everything is ok
+serengeti_wide
 
 # Simple statistical analysis ---------
 

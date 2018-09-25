@@ -25,6 +25,14 @@ lines[length(lines)-2] #last line a bit of a spoiler so lets check the penultima
 #hint: look at lines
 27, 29, 36, 90
 
+dialouge = 0
+for(i in 1:length(lines)){
+	if(grepl("\"" , lines[i])){
+		dialouge = dialouge + 1	
+	}
+}
+
+dialouge
 
 # what is the first question in the text? what is the last question?
 

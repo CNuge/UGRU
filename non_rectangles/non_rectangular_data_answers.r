@@ -50,7 +50,8 @@ length(dialouge_list[dialouge_list==TRUE])
 
 
 # advantage of the second way for question 1 is that we get to reuse the funciton
-# looking for the last question is the same pattern as looking for dialouge 
+# looking for the last question is the same pattern as looking for dialouge
+
 question_bool = lapply(lines, function(x){IsIn("\\?", x)})
 
 question_list = lines[question_bool==TRUE]
@@ -59,14 +60,43 @@ question_list[1]
 
 question_list[length(question_list)]
 
+
+
+WordCount = function(str){
+	words = strsplit(str, "\\s+")[[1]]
+	return(length(words))#int
+}
+
+wc = lapply(lines, function(x){WordCount(x)})
+unlist(wc)
+
+
+#limitations of R
+#we cant have a function that makes two outputs... 
+#which is a pretty standard thing :(
+
+#perfect world this would work:
+
+#WordCount = function(str){
+#	words = strsplit(str, "\\s+")[[1]]
+#	return(len(words), words)#int
+#}
+
+#wc_list, words = lapply(lines, function(x){WordCount(x)})
+
+
 #build a dataframe with the following columns (and data types)
 
-#Line_#		text	is_dialogue	is_question	word_count
-#int		string	Bool		Bool		int
+#Line	is_dialogue	is_question	word_count	text
+#int	Bool		Bool		int			string
 
+answer_df = data.frame(line= 1:length(lines),
+						is_dialouge = unlist(dialouge_list),
+						is_question = unlist(question_bool),
+						word_count = unlist(wc),
+						text= lines)
 
-
-
+head(answer_df)
 
 
 # finally answer the following:
@@ -81,6 +111,9 @@ question_list[length(question_list)]
 # titled 'The Last Answer' which is found in the following text file:
 
 last_answer = read_lines('asimov_the_last_answer.txt')
+
+
+
 
 # Given the HK-index of the two texts, is there statistical evidence of Isaac Asimov getting more long winded with age?
 

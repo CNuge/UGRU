@@ -16,8 +16,7 @@ summary(lines)
 
 lines[1:2]
 
-lines[length(lines)-2] #last line a bit of a spoiler so lets check the penultimate
-
+lines[length(lines)] 
 
 #Questions to answer:
 
@@ -34,8 +33,31 @@ for(i in 1:length(lines)){
 
 dialouge
 
+
+# or
+
+IsIn = function(subject, query){
+	# == index position
+	return(	grepl(subject , query))
+}
+
+dialouge_list = lapply(lines, function(x){IsIn("\"", x)})
+
+length(dialouge_list[dialouge_list==TRUE])
+
+
 # what is the first question in the text? what is the last question?
 
+
+# advantage of the second way for question 1 is that we get to reuse the funciton
+# looking for the last question is the same pattern as looking for dialouge 
+question_bool = lapply(lines, function(x){IsIn("\\?", x)})
+
+question_list = lines[question_bool==TRUE]
+
+question_list[1]
+
+question_list[length(question_list)]
 
 #build a dataframe with the following columns (and data types)
 

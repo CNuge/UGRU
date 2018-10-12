@@ -6,16 +6,15 @@ rm(subsampled.RM.out)
 
 head(dat)
 
-#og done don't work
-comm_by_chromosome = lapply(split(dat, dat$Chromosome), 
-						function(y) t( sapply( split(y, list(cut(y["End"], as.integer(max(y$End)/as.integer(y["Window_Size"]))))), 
-						function(x) table(x$Family))))
 
 #this was missing?
 dat$Window_Size = dat$End - dat$Start
 #but its not needed?
 
+#no its a lil window thingy
+Window.Size = 150000
 
+comm_by_chromosome <- lapply(split(dat, dat$Chromosome), function(y) t(sapply(split(y, list(cut(y[,"End"], as.integer(max(y$End)/as.integer(Window.Size))))), function(x) table(x$Family))))
 
 #########
 #########

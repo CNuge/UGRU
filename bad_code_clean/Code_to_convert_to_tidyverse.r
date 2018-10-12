@@ -1,3 +1,5 @@
+library('tidyverse')
+
 load("subsampled.RM.out.RData")
 head(subsampled.RM.out)
 
@@ -19,7 +21,6 @@ comm_by_chromosome = lapply(split(dat, dat$Chromosome),
 							function(x) table(x$Family))))
 
 head(comm_by_chromosome[[1]])
-
 
 
 chr_counts = function(df){
@@ -47,10 +48,17 @@ chr_counts = function(df){
 	
 
 list_of_df = split(dat, dat$Chromosome)
-
 chr_counts_df = lapply(list_of_df, chr_counts)
-
 chr_counts_df
+
+
+#####
+# Karl's boss ass method
+#####
+
+
+
+
 
 #########
 #########
@@ -86,4 +94,14 @@ head(fam_count_chr) #dataframe with chr as columns and family counts in rows
 
 
 #challenge - one line the above with a groupby
+  
+counts_chr = dat %>%
+  group_by(Chromosome, Family) %>%
+  count()
 
+counts_chr %>%
+	summarize(obs = n()) %>%
+
+
+
+?spread

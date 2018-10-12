@@ -53,10 +53,8 @@ chr_counts_df
 
 
 #####
-# Karl's boss ass method
+# Jack/Karl's boss ass method
 #####
-
-
 
 
 

@@ -5,18 +5,19 @@ multivac = 'asimov_the_last_question.txt'
 # 'The last question'
 
 
-csv_try = read_csv(multivac)
+csv_try = read.csv(multivac)
 #it gets confused because we told it to read a csv, but there are just random
 #commas interspersed throughout the lines...
 
 
-lines = read_lines(multivac)
+lines = readLines(multivac)
 
 summary(lines)
+is.vector(lines)
 
 lines[1:2]
 
-lines[length(lines)-2] #last line a bit of a spoiler so lets check the penultimate
+lines[length(lines)] 
 
 
 #Questions to answer:
@@ -48,7 +49,7 @@ lines[length(lines)-2] #last line a bit of a spoiler so lets check the penultima
 # 24 years after writing 'The Last Question', our boy Isaac wrote another short story
 # titled 'The Last Answer' which is found in the following text file:
 
-last_answer = read_lines('asimov_the_last_answer.txt')
+last_answer = readLines('asimov_the_last_answer.txt')
 
 # b. Given the HK-index of the two texts, is there statistical evidence of Isaac Asimov getting more long winded with age?
 

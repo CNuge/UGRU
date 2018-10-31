@@ -19,18 +19,23 @@ lines[1:2]
 
 lines[length(lines)] 
 
-
+#####################
 #Questions to answer:
+#####################
 
+#####################
 # 1. how many lines of dialogue are there?:
 # hint: look at lines 27, 29, 36, 90
 # efficiency hint: can you write a generic function to answer this and question 2?
 
+
+#####################
 # 2. a. what is the first question in the text? 
 
 # b. what is the last question?
 
 
+#####################
 # 3. build a dataframe with the following columns (and data types)
 
 #Line	is_dialogue	is_question	word_count	text
@@ -38,6 +43,7 @@ lines[length(lines)]
 
 
 
+#####################
 # 4. finally answer the following:
 # The Hemingway-Kafka index is a measure of how long an author's sentences are. 
 # It is a simply the average number of words in a sentence from a given text.

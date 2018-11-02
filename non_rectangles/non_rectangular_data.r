@@ -1,5 +1,4 @@
-library('tidyverse')
-
+setwd('~/Code/UGRU/non_rectangles/')
 multivac = 'asimov_the_last_question.txt'
 # this is a file with the text from a short story by Isaac Asimov:
 # 'The last question'
@@ -15,8 +14,9 @@ lines = readLines(multivac)
 summary(lines)
 is.vector(lines)
 
+#first two members of vector
 lines[1:2]
-
+#last member of vector
 lines[length(lines)] 
 
 #####################

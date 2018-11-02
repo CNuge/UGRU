@@ -1,3 +1,4 @@
+setwd('~/Code/UGRU/non_rectangles/')
 
 multivac = 'asimov_the_last_question.txt'
 # this is a file with the text from a short story by Isaac Asimov:

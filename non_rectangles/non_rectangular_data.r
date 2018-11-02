@@ -91,6 +91,7 @@ question_df = data.frame(line= 1:length(lines),
 
 head(question_df)
 question_df$is_dialouge
+
 #####################
 # 4. finally answer the following:
 # The Hemingway-Kafka index is a measure of how long an author's sentences are. 

@@ -29,6 +29,9 @@ lines[length(lines)]
 # 1. how many lines of dialogue are there?:
 # hint: look at lines 27, 29, 36, 90
 # efficiency hint: can you write a generic function to answer this and question 2?
+i= 27
+lines[i]
+grepl("\"" , lines[i])
 
 dialouge = 0
 for(i in 1:length(lines)){
@@ -48,6 +51,8 @@ IsIn = function(subject, query){
 }
 
 dialouge_list = lapply(lines, function(x){IsIn("\"", x)})
+
+dialouge_list = grepl("\"", lines)
 
 length(dialouge_list[dialouge_list == TRUE])
 
@@ -91,10 +96,10 @@ unlist(wc)
 
 # in a perfect world this would work:
 
-# WordCount = function(str){
-#	words = strsplit(str, "\\s+")[[1]]
-#	return(len(words), words)#int
-# }
+WordCount = function(str){
+	words = strsplit(str, "\\s+")[[1]]
+	return(len(words), words)#int
+}
 
 # wc_list, words = lapply(lines, function(x){WordCount(x)})
 
@@ -122,10 +127,11 @@ mean(question_df$word_count)
 # titled 'The Last Answer' which is found in the following text file:
 last_answer = readLines('asimov_the_last_answer.txt')
 
+# getting the data to build a new matching dataframe is easy when 
+# we have generic functions written
 ans_dialouge_list = lapply(last_answer, function(x){IsIn("\"", x)})
 ans_question_bool = lapply(last_answer, function(x){IsIn("\\?", x)})
 ans_wc = lapply(last_answer, function(x){WordCount(x)})
-
 
 answer_df = data.frame(line= 1:length(last_answer),
 						is_dialouge = unlist(ans_dialouge_list),

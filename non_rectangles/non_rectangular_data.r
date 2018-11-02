@@ -1,14 +1,16 @@
 setwd('~/Code/UGRU/non_rectangles/')
-multivac = 'asimov_the_last_question.txt'
+
 # this is a file with the text from a short story by Isaac Asimov:
 # 'The last question'
+multivac = 'asimov_the_last_question.txt'
 
 
-csv_try = read.csv(multivac)
 #it gets confused because we told it to read a csv, but there are just random
 #commas interspersed throughout the lines...
+csv_try = read.csv(multivac)
 
-
+#this works, it just reads the data in line by line 
+# and stores the contents as a list of strings
 lines = readLines(multivac)
 
 summary(lines)

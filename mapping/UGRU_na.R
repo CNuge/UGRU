@@ -13,11 +13,12 @@ library(raster)
 library(mapview)
 # we already have a couple of nice tuto about it!
 library(tidyverse)
-
+#install.packages('rgeos', dependencies=TRUE)
+library(rgeos)
 
 #### First vector file ####
 ## in raster => function getData()
-can <- getData("GADM", country = "CAN", level = 1, path = "data") %>% st_as_sf
+can <- getData("GADM", country = "CAN", level = 1, path = "./data") %>% st_as_sf
 class(can)
 names(can)
 ##

@@ -2,9 +2,9 @@
 # read manipulate vector files tidyverse friendly
 # intriduce sf sfg and sfc objects
 
-install.packages('sf')
-install.packages('raster')
-install.packages('mapview')
+#install.packages('sf')
+#install.packages('raster')
+#install.packages('mapview')
 
 library(sf) # functions starts with st_*
 # read + manipulate raster files

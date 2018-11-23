@@ -3,6 +3,23 @@ library(shiny)
 library(tidyverse)
 titanic <-as.data.frame(Titanic)
 
+
+#notes:
+# the shiny app line at the bottom joins the ui and the server,
+# the variables in the shiny interface line (input and output)
+# let the ui call the variables from the server and vise versa
+
+# there are plenty of pre built options for the building of ui components(i.e. sliders, menus)
+# and also for the server side building the 
+
+# here are all the server options
+# https://shiny.rstudio.com/gallery/widget-gallery.html
+#
+
+
+
+#this part controls the visual layout, i.e. what the user of the webpage will see
+#they provide inputs through this part
 ui <- fluidPage(
   div(id = "header",
       h1("Titanic Survival Exploration", align = "center", style = "color:blue"),
@@ -23,6 +40,7 @@ ui <- fluidPage(
   )
 )
 
+#this bit takes the user input and makes it into a graph
 server <- function(input, output){
   output$plot<-renderPlot({
    if(input$graph_type == "bar"){

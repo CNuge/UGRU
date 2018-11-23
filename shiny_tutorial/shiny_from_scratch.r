@@ -19,11 +19,28 @@ ui = fluidPage(
 			)
 		),
 	 column(6,
-           plotOutput("plot")
+           plotOutput("plot") #this relied on the name defined in the renderPlot within the server function
           )
 	)
 
 server = function(input, output){
+  #the render plot here says to build a new plot any time a value is changed in the ui
+  output$plot=renderPlot({
+   if(input$graph_type == "bar"){
+   	# note the aes_string below, this lets it take the input in string format
+   	# which is just how the thing is coded here, you can have numbers etc passed from one
+   	# to the other
+     ggplot(data = titanic, aes_string(x=input$x_value, y="Freq", fill = "Survived"))+
+       geom_bar(stat="identity")+
+       ggtitle("Investigating the survival rate of Titanic")
+   }
+   else
+     {
+     ggplot(data = titanic, aes_string(x=input$x_value, y="Freq", colour = "Survived"))+
+       geom_point()+
+       ggtitle("Investigating the survival rate of Titanic")
+   }
+  })
 
 }
 

@@ -17,6 +17,11 @@ titanic <-as.data.frame(Titanic)
 #
 
 
+# https://shiny.rstudio.com/
+#have a look here for the long winded tutorial
+
+
+#can make a shiny app, save it as App.R and then interface it with their free website
 
 #this part controls the visual layout, i.e. what the user of the webpage will see
 #they provide inputs through this part

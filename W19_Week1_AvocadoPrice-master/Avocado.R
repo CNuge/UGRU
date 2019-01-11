@@ -77,12 +77,12 @@ p1 = ggplot(data = data, aes(x = TOTAL_VOLUME, y = AVERAGE_PRICE)) +  ## First s
 p1
 
 
+mon_data = data.frame(MONTH= as.numeric(data$MONTH), MONTHNAME = data$MONTHNAME)
+mon_data = unique(mon_data)
+mon_data = mon_data[order(mon_data$MONTH),]
+data$MONTHNAME = factor(data$MONTHNAME, as.character(mon_data$MONTHNAME) )
+
 #note the italics in the plot below
-mon_data = data.frame(MONTH= data$MONTH, MONTHNAME = data$MONTHNAME)
-mon_data = unique(order(mon_data$MONTH))
-
-
-mon_data$MONTHNAME = factor(mon_data$MONTHNAME, )
 
 ## Making fancy violin plots
 ## These are the best plots ever and should be used constantly (my opinion)

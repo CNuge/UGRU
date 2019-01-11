@@ -3,16 +3,21 @@
 ## We are using a free data set from Kaggle to analyze 
 ## The prices of Avocados in the USA
 
-install.packages('patchwork')
+# install.packages('janitor')
 
-library(tidyverse)  	## Best package ever
+library(tidyverse)  
 library(wesanderson) 	## Makes plots coloured as Wes Anderson movie themes
-library(patchwork) 		## Allows you to make really nice plots
-library(janitor) 	 	## Makes coloumn names a uniform format
+#library(patchwork) 		## Allows you to make really nice plots
+library(janitor) 	 	## Makes column names a uniform format
+
+
+# note below matt uses clean_names from the janitor package
+# this lets you standardize the capitalization/spacing in names
+
 
 data = read_csv('avocado.csv') %>%  ## Read in the data. This data was provided by Kaggle
   select(-X1) %>%   ## Remove this coloumn as it repeats the index
-  clean_names('screaming_snake') %>%  ## Makes all of the coloumn names a uniform format
+  clean_names('screaming_snake') %>%  ## Makes all of the column names a uniform format
   ## Column names are now caps locked and aggressive 
   separate(col = DATE, into = c('YEAR', 'MONTH', 'DAY'),  ## The date is all together and we don't want that
   ## we want the dates separated into year, month, and day 
@@ -36,7 +41,20 @@ data = read_csv('avocado.csv') %>%  ## Read in the data. This data was provided 
          NUMLARGEBAGS = LARGE_BAGS,
          NUMEXTRALGBAGS = X_LARGE_BAGS)
 
+colnames(data)
+data
+max(data$AVERAGE_PRICE)
+
+
+data[data$AVERAGE_PRICE == max(data$AVERAGE_PRICE) ,]
 theme_set(theme_bw())  ## Sets your plotting theme ahead of time. This just saves some time. 
+
+
+#this lets you switch everything to lowercase
+data = clean_names(data, 'snake')
+data
+
+
 ## SET YOUR THEME TO WHATEVER YOU WANT!
 
 ## BIG PLOTTING SIDE NOTE!
@@ -56,7 +74,7 @@ p1 = ggplot(data = data, aes(x = TOTAL_VOLUME, y = AVERAGE_PRICE))+  ## First st
   theme(panel.grid.major = element_blank(), ## Get the trash gridlines out of here, gets rid of major grid lines
         panel.grid.minor = element_blank(), ## Gets rid of the minor grid lines
         axis.text = element_text(size = 6)) ## Increases the text size
-
+p1
 
 ## Making fancy violin plots
 ## These are the best plots ever and should be used constantly (my opinion)
@@ -78,7 +96,8 @@ p2 = ggplot(data = data, aes(x = MONTHNAME, y = AVERAGE_PRICE))+ ## Set this up 
   theme(panel.grid.major = element_blank(),  ## Get rid of major panel grid lines
         panel.grid.minor = element_blank())  ## Get rid of the minor panel grid lines
   
-p1/p2  ## This syntax is a part of the patchwork function
+p1
+p2  ## This syntax is a part of the patchwork function
 ## patchwork allows us to link plots and plot them all in the same window
 ## I personally find this the best way to format plots into a single picture
 ## Joey showed me this package

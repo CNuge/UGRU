@@ -51,8 +51,8 @@ theme_set(theme_bw())  ## Sets your plotting theme ahead of time. This just save
 
 
 #this lets you switch everything to lowercase
-data = clean_names(data, 'snake')
-data
+sm_data = clean_names(data, 'snake')
+sm_data
 
 
 ## SET YOUR THEME TO WHATEVER YOU WANT!
@@ -65,21 +65,29 @@ data
 
 
 ## Plotting a normal scatter plot with a line
-p1 = ggplot(data = data, aes(x = TOTAL_VOLUME, y = AVERAGE_PRICE))+  ## First step in becoming a ggplot2 master, set the data up. 
-  geom_point(aes(col = TYPE))+ ## tells ggplot that you're plotting actual points... this makes the dots appear
-  geom_smooth(method = 'lm', col = 'black')+ ## This makes the lines appear, lets us plot a linear relationship
-  labs(x = 'Total Volume', y = 'Average price of avocados')+ ## the labs function changes the x and y labels
-  scale_color_manual(values = wes_palette('Darjeeling1', n = 5,  ## This lets us scale the colours to whatever we want
-                                          type = 'continuous'))+ ## and of course we want plots themed as Wes Anderson movies
+p1 = ggplot(data = data, aes(x = TOTAL_VOLUME, y = AVERAGE_PRICE)) +  ## First step in becoming a ggplot2 master, set the data up. 
+  geom_point(aes(col = TYPE)) + ## tells ggplot that you're plotting actual points... this makes the dots appear
+  geom_smooth(method = 'lm', col = 'black') + ## This makes the lines appear, lets us plot a linear relationship
+  labs(x = 'Total Volume', y = 'Average price of avocados') + ## the labs function changes the x and y labels
+  scale_color_manual(values = wes_palette('Darjeeling2', n = 5,  ## This lets us scale the colours to whatever we want
+                                          type = 'continuous')) + ## and of course we want plots themed as Wes Anderson movies
   theme(panel.grid.major = element_blank(), ## Get the trash gridlines out of here, gets rid of major grid lines
         panel.grid.minor = element_blank(), ## Gets rid of the minor grid lines
         axis.text = element_text(size = 6)) ## Increases the text size
 p1
 
+
+#note the italics in the plot below
+mon_data = data.frame(MONTH= data$MONTH, MONTHNAME = data$MONTHNAME)
+mon_data = unique(order(mon_data$MONTH))
+
+
+mon_data$MONTHNAME = factor(mon_data$MONTHNAME, )
+
 ## Making fancy violin plots
 ## These are the best plots ever and should be used constantly (my opinion)
-p2 = ggplot(data = data, aes(x = MONTHNAME, y = AVERAGE_PRICE))+ ## Set this up the same way as in the plot above
-  geom_violin(aes(col = TYPE, fill = TYPE))+ ## Specifying that we want a violin plot
+p2 = ggplot(data = data, aes(x = MONTHNAME, y = AVERAGE_PRICE)) + ## Set this up the same way as in the plot above
+  geom_violin(aes(col = TYPE, fill = TYPE)) + ## Specifying that we want a violin plot
   ## note that to make the colors work we need to speify both col and fill
   theme(axis.text.x = ## we need to make the x axis text not terrible
           element_text(size  = 6, ## changes size
@@ -87,12 +95,13 @@ p2 = ggplot(data = data, aes(x = MONTHNAME, y = AVERAGE_PRICE))+ ## Set this up 
                        hjust = 1, ## adjusts it horizontally
                        vjust = 1), ## adjusts it vertically
         axis.text.y = element_text(size = 6)) + ## change the size of the y axis text to match the x axis
-  labs(x = "Month", y = "Average price ('Merica Dollars)")+ ## Axis labels
+  labs(x = "Month", y = "Average price ('Murica Dollars)") + ## Axis labels
+  ylab(expression(paste("Average price ", italic("'Murica Dollars"))))+
   scale_color_manual(values = wes_palette('Darjeeling1', n = 5,  ## Specifies which Wes Anderson palette to use
-                                          type = 'continuous'))+
+                                          type = 'continuous')) +
   scale_fill_manual(values = wes_palette('Darjeeling1', n = 5,  ## Remember to always specify the fill
   	## This fills the plot with color
-                                         type = 'continuous'))+
+                                         type = 'continuous')) +
   theme(panel.grid.major = element_blank(),  ## Get rid of major panel grid lines
         panel.grid.minor = element_blank())  ## Get rid of the minor panel grid lines
   

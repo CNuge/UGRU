@@ -97,3 +97,16 @@ plot_grid(g1,g2,ncol=2)
 plot_grid(g1,g2,nrow=2)
 
 
+
+#organization idea.
+#preface all dataframe variables with df
+#all lists with ls and all vectors with v
+#that way when you call
+ls()
+# you can then see all the dataframes right next to one another.
+
+
+
+
+
+

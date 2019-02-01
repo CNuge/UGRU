@@ -12,15 +12,22 @@ names(df_cheese_wide)
 keep_cols = c('Year','Cheddar','American Other','Mozzarella','Italian other','Swiss','Brick','Muenster','Cream and Neufchatel','Blue','Other Dairy Cheese','Processed Cheese')
 
 
-df_cheese_long <- melt(df_cheese_wide[keep_cols],id.vars=c("Year"))
-head(df_cheese_long)
 
-names(df_cheese_long) = c('year', 'cheese_type', 'amount')
+#df_cheese_long = melt(df_cheese_wide[keep_cols], 
+#						id.vars=c("Year"),
+#						value.name = 'amount',
+#						)
+# names(df_cheese_long) = c('year', 'cheese_type', 'amount')
 
-plot_cheese = ggplot(df_cheese_long, aes(x = year, y = amount, color = cheese_type)) + 
+# the above is the reshape version of the dplyr below
+# the use of the -Year is a little odd at first but it is a one liner.
+df_cheese_long = gather(df_cheese_wide[keep_cols],'cheese_type', 'amount', -Year)
+
+
+plot_cheese = ggplot(df_cheese_long, aes(x = Year, y = amount, color = cheese_type)) + 
   geom_point() + 
   geom_line()+
-  labs(x = 'year',
+  labs(x = 'Year',
   		y = 'Amount consumed (lbs)',
   		title = 'US average yearly cheese consumption per person, by cheese type')+ 
   theme_minimal() +

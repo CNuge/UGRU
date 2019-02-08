@@ -158,7 +158,27 @@ add.arrow(vert.tree, tip = c(3, 9, 10, 11), arrl = 0.5)
 
 #### 5. CHALLENGE----
 
-#Specify a phylogenetic tree that shows the relationship among: Fly, Daphnia, Horseshoe_crab, Bat, Mouse, Cow, Bird, Crocodile, Lizard, Coelacanth, Salmon, Shark.
+#Specify a phylogenetic tree that shows the relationship among: 
+#, , , , ,  , , 
+
+
+
+
+
+
+
+camlogeny = 
+  "
+  (((Fly, Daphnia)), (Horseshoe_crab, (((Salmon, Coelacanth),Shark) , (((Bird, Lizard), Crocodile ), (Cow,(Mouse,Bat) )))));
+  "
+
+
+cam_tree = read.tree(text = camlogeny)
+
+plot(cam_tree,no.margin=TRUE,edge.width=2)
+
+plotTree(cam_tree, type="fan", fsize=0.7, lwd=1, ftype="i")
+
 
 #Visualize your tree.
 
@@ -174,15 +194,20 @@ add.arrow(vert.tree, tip = c(3, 9, 10, 11), arrl = 0.5)
 #Overview of helpful packages through CRAN task view by Brian O'Meara:
 #https://cran.r-project.org/web/views/Phylogenetics.html
 
-#picante is a package particularly of relevance for community ecologists. You can use that package to test whether a given community consists of species that are more closely related or more distantly related than expected by chance.
+#picante is a package particularly of relevance for community ecologists. 
+#You can use that package to test whether a given community consists of species 
+#that are more closely related or more distantly related than expected by chance.
 
 #phytools has functionality for reconstructing ancestral character states
 #http://www.phytools.org/eqg2015/asr.html
 
-#ggtree is a particularly helpful package for visualization of phylogenies. It builds upon the ggplot2 system. See the vignette and some cool visualizations by Guangchuang Yu and Tommy Tsan-Yuk Lam:
+#ggtree is a particularly helpful package for visualization of phylogenies. 
+#It builds upon the ggplot2 system. See the vignette and some 
+#cool visualizations by Guangchuang Yu and Tommy Tsan-Yuk Lam:
 #http://www.bioconductor.org/packages/3.1/bioc/vignettes/ggtree/inst/doc/ggtree.html
 
 #Check out the Bioconductor repository for ~1500 packages related to bioinformatics
 
-#Can we build phylogenies in R? Yes! If there is interest, I am happy to provide a brief overview of DNA sequence handling and phylogeny building in R.
+#Can we build phylogenies in R? Yes! If there is interest, I am happy to provide 
+#a brief overview of DNA sequence handling and phylogeny building in R.
 

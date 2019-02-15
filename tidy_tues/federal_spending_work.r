@@ -12,3 +12,10 @@ names(fed_df)
 fed_df$department[237] == "High-Energy Physics*"
 fed_df$year
 fed_df$energy_spending
+
+
+spend_plot = ggplot(fed_df , aes(x= year, y = energy_spending, colour = department))+
+			geom_point()
+
+
+spend_plot

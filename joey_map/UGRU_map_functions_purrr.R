@@ -129,7 +129,11 @@ by_dept <- by_dept %>%
 #this is how it would be applied to just a single list member
 rd_model(by_dept$data[[1]])
 
+lm_out_test = lm(rd_mill ~ gdp_bill, data = by_dept$data[[1]])
 
+summary(lm_out_test)
+
+coefficients(lm_out_test)['gdp_bill']
 
 ## the map() function will transform (or map) a list of dataframes into a 
 ## list of corresponding models.
@@ -146,15 +150,38 @@ rd_model(by_dept$data[[1]])
 ## augment() = observation-level outputs 
 ## (one row for each row in the original dataset; e.g., residuals, es)
 
+
+#cam trying to get the coefficients out 
+broom::glance(by_dept$mod[[1]])
+
+coefficients(by_dept$mod[[1]])['gdp_bill']
+
+#this function pulls the coeffecient out from the dataframe
+#takes a dataframe and the desired coefficient as an input
+get_coef = function(df, coef){
+  return(coefficients(df)[coef])
+}
+
+#this is how it would be singularly applied
+get_coef(by_dept$mod[[1]], 'gdp_bill')
+
+#this is how it would be applied to all the nested dfs at once
+mapply(get_coef, by_dept$mod , 'gdp_bill')
+
+#this is how it works in map2... same thing but the arguments are in a different order
+map2(by_dept$mod , 'gdp_bill', get_coef)
+
+#can we get the coefficients into the df
 by_dept <- by_dept %>% 
   mutate(tidy = map(mod, broom::tidy),
          glance = map(mod, broom::glance), 
          augment = map(mod, broom::augment), 
          rsq = glance %>% map_dbl("adj.r.squared"), 
-         pval = glance %>% map_dbl("p.value"))
+         pval = glance %>% map_dbl("p.value"),
+         gdp_coef = as.vector(mapply(get_coef, mod , 'gdp_bill')),
+         next_coef = as.vector(unlist(map2(mod ,'gdp_bill', get_coef))))
 
 by_dept
-
 ## plot the r-squared values for each country
 ggplot(data = by_dept %>% 
          mutate(p_bin = as.factor(if_else(pval > 0.05, "ns", "sig"))), 

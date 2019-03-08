@@ -51,7 +51,6 @@ Dispersed$Year = factor(Dispersed$Year)
 
 # Model to see if density affects how far an animal disperses
 # while accounting for temporal variation in the system
-
 How.Far.ConsideringYear = lmer(Distance.Travelled~Density + (1|Year), data = Dispersed)
 summary(How.Far.ConsideringYear)
 
@@ -59,8 +58,14 @@ summary(How.Far.ConsideringYear)
 # there is a philosophical debate as to whether you can calculate them here
 
 # load in lmerTest
+# force lmer to give p values.
+# this is a contentious issue:
+# https://link.springer.com/article/10.3758/s13428-016-0809-y
+# install.packages('lmerTest')
 library(lmerTest)
+
 How.Far.ConsideringYear = lmer(Distance.Travelled~Density + (1|Year), data = Dispersed)
+#this summary looks more like the standard output style
 summary(How.Far.ConsideringYear)
 
 

@@ -1,5 +1,5 @@
 ####TUTORIAL: INTRODUCTION TO THE ANALYSIS OF DNA SEQUENCE DATA FROM BOLD USING R----
-
+setwd('/Users/Cam/Code/UGRU/sally_ape_tutorial')
 #last updated March 8, 2019 by Sally Adamowicz (sadamowi@uoguelph.ca)
 
 #Acknowledgements: Some lines below were inspired by tips or work by PhD candidates Jacqueline May and Matthew Orton. As well, thank you to the UGRU group for many helpful tutorials, resulting in my near-complete conversion to the tidyverse.
@@ -44,11 +44,11 @@ library(ape)
 
 #Packages from Bioconductor, which is a repository that focuses on curated packages for bioinformatics. You would need to uncomment and run all of these lines if you don't have these packages yet. Bioconductor is a very helpful resource, housing >1500 packages.
 
-#source("https://bioconductor.org/biocLite.R")
-#biocLite("Biostrings")
-#biocLite("muscle")
-#biocLite("msa")
-#biocLite("DECIPHER")
+source("https://bioconductor.org/biocLite.R")
+biocLite("Biostrings")
+biocLite("muscle")
+biocLite("msa")
+biocLite("DECIPHER")
 
 library(Biostrings)
 library(muscle)

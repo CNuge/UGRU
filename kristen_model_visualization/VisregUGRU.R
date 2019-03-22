@@ -15,8 +15,9 @@ library(nlme)
 #install.packages('visreg')
 library(visreg)
 
-
 Soils = read_csv(file = "SoilsUGRU.csv")
+Soils = column_to_rownames(Soils, var ='X1')
+head(Soils)
 
 SoilsUGRU = select(Soils, timesincefire, avg.org, cubeorg, Moisture, ecoregion3, cubePima, burn.name, site)
 #Download the file

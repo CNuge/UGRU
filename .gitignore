@@ -1,0 +1,7 @@
+
+interactive_R-master/latlon_whs_pca.csv
+*.html
+*.shp
+*.shx
+*.dbf
+interactive_R-master/whs_pc1to5.csv

@@ -1,0 +1,19 @@
+# General plotting library: plotly 
+# More info: http://www.htmlwidgets.org/showcase_plotly.html
+
+install.packages("plotly")
+library(plotly)
+
+setwd("/lab/mandeville/teaching/interactive_R/")
+
+## Get some data
+
+whs <- read.csv("whs_pc1to5.csv", header=T)
+head(whs)
+plot_ly(data=whs, x= ~PC1, y= ~PC2)
+
+# Break out by location
+plot_ly(data=whs, x= ~PC1, y= ~PC2, color= ~location)
+
+# Add individual labels
+plot_ly(data=whs, x= ~PC1, y= ~PC2, color= ~location, text= ~paste(individual,"<br>", basin))

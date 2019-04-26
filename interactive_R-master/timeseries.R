@@ -3,11 +3,11 @@
 # Info on dygraphs here: http://www.htmlwidgets.org/showcase_dygraphs.html
 
 #Install and load the package
-install.packages("dygraphs")
+#install.packages("dygraphs")
 library(dygraphs)
 
 # Set working directory
-setwd("~/guelph/teaching/interactive_R/")
+#setwd("~/guelph/teaching/interactive_R/")
 
 # I didn't have any time series data when I made this tutorial, so we'll make some up:
 years <- seq(1916,2016,1)
@@ -38,3 +38,6 @@ z <- dygraph(danger, main = "Zombie attacks and zombie population by year") %>%
 
 library(htmlwidgets)
 
+#the ability to zoom in on local parts of the plot here is pretty interesting,
+#can let you zoom in on specific points, timepoints etc which is useful in
+#data exploration.

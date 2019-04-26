@@ -2,11 +2,16 @@
 # Info on leaflet here: 
 # http://www.htmlwidgets.org/showcase_leaflet.html
 # http://rstudio.github.io/leaflet/
-install.packages("leaflet")
+
+#the above list a lot of different packages avaliable for interactive plotting in r
+#lets you use the javascript web based interactive plots without having to 
+#know how to code javascript... which is neat
+
+#install.packages("leaflet")
 
 # Load package and set working directory
 library(leaflet)
-setwd("~/guelph/teaching/interactive_R/")
+#setwd("~/guelph/teaching/interactive_R/")
 
 ## Read in data
 samp <- read.csv("locations_all.csv", header=T)
@@ -16,14 +21,14 @@ head(samp)
 leaflet(data=samp[,2:3]) %>%  # Specify which data you want to plot
   setView(lng=-109.55, lat=41.16, zoom=6) %>%  # Set size of window
   addProviderTiles("Hydda.Base") %>%  # Choose basemap
-  addMarkers(lng=samp[,2], lat=samp[,3], popup= samp[,1]) # Plot points
+  addMarkers(lng=samp[,2], lat=samp[,3], popup= samp[,1])%>%  # Plot points
   addMarkers(lng=samp[,2], lat=samp[,3], popup=paste("Hello there! This is site",samp[,1]))
   
 ## Well, this is fairly useless - I (mostly) study rivers, and the rivers on the
 ## base map suck. Luckily, we can add our own from a shape file.
   
 ## Read in River and Basin data - from National Hydrography Database, I think. 
-install.packages(c("maptools", "rgdal"))
+#install.packages(c("maptools", "rgdal"))
 library(maptools)
 library(rgdal)
   

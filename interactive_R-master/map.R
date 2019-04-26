@@ -34,6 +34,9 @@ library(rgdal)
   
 # Load Rivers shapefile, check it out, subset   
 Rivers.all <- readOGR(dsn="rs14fe02.shp") #NB, other associated files (.shx, .dbf, .prj) should be in the same directory
+#note you need all of the different file to be in the same working dir and they all 
+#have to have the same name, you tell it where to find the .shp and it goes
+#and grabs the other ones in the backgroud (its shape file metadata)
 names(Rivers.all)
 Rivers <- Rivers.all[Rivers.all$HUC2==14,] # We only want to plot the Upper Colorado River basin, and the original shapefile is much bigger. 
 class(Rivers) # Double check data type - needs to be "SpatialLinesDataFrame" - from the package "sp"

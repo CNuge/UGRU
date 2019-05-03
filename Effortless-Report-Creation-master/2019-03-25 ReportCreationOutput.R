@@ -8,9 +8,12 @@
 ##############################
 
 library(rmarkdown)
+#install.packages('prettydoc')
 library(prettydoc)
-
+#install.packages('tinytex')
+#library(tinytex)
 # Startup ends here
+#tinytex::install_tinytex()
 
 ## Comment codes ------
 # Coding explanations (#, often after the code, but not exclusively)
@@ -41,6 +44,14 @@ rmarkdown::render(
   ),
   output_file = "./output/ex_02_render_minimalish.html"
 )
+
+#try it as a pdf
+#this outputs it to a latex document... which is useful but not perfect.
+#rmarkdown::render(
+#  "2019-03-25 ReportCreationExample.R",
+#  output_format =  rmarkdown::pdf_document(),
+#  output_file = "./output/ex_02_render_minimalish.pdf"
+#)
 
 ## __ Produce html output with custom css, with external dependency ----
 rmarkdown::render(

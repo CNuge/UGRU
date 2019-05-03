@@ -43,6 +43,10 @@ ggplot(data = mpg) +
 ## _ Example code for analysis ------
 
 glmfit <- glm(am ~ wt, mtcars, family="binomial")
+#check out this!
+# it gives you the output that would normally come in a a summary call
+# but within a tidy df.
+
 tidy(glmfit)
 
 augment(glmfit)
@@ -54,3 +58,9 @@ glance(glmfit)
 # Done: example code
 # Done: three rendering examples
 #TODO convert rendering code into snippet for easy execution
+
+
+
+#Cam\'s TODO
+#try to make this render not as a text comment, but as stylized text in between code blocks.
+

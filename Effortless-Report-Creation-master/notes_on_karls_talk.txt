@@ -1,3 +1,11 @@
 Effortless report creeation
-- Karl's notes on a way to make reports without rmarkdown
+- Karl's notes on a way to make reports with rmarkdown in a fast and easy manner
+- doesn't utilize inline commenting, instead you just pass it a file and it runs
+	it and puts the outputs inline with the code, need to use comments the old
+	fashioned way
+
+- it a minimalist r markdown run, just outputs inline with the code in a document
+	that doesn't change.
+
+- quick and dirty way of sharing stuff
 

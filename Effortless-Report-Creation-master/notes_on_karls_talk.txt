@@ -1,0 +1,3 @@
+Effortless report creeation
+- Karl's notes on a way to make reports without rmarkdown
+

@@ -72,6 +72,7 @@ df_eda %>% GGally::ggpairs()
 # works only with quantitative data!
 # df_edaQ = df_eda %>% fastDummies::dummy_cols(remove_first_dummy = T) 
 
+
 dfMVoutlier <- df_eda %>% select_if(is.numeric) %>% MASS::cov.mcd(., quantile.used = nrow(.)*.75)
 dfMVoutlier <- df_eda %>% select_if(is.numeric) %>%  mahalanobis(., dfMVoutlier$center, dfMVoutlier$cov)
 vcMVoutlier = which(dfMVoutlier > (qchisq(p = 1 - 0.001, df = ncol(iris[,1:4]))))
@@ -83,4 +84,7 @@ df_eda[vcMVoutlier, ] # only multivariate outliers
 
 df_eda %>% select_if(is.numeric) %>% prcomp(center = T, scale. = T) %>% 
   ggbiplot::ggbiplot(circle = T)
+
+
+
 

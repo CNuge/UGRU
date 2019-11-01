@@ -1,5 +1,6 @@
-setwd("~/Desktop")
-
+library(aphid)
+library(coil)
+library(tidyverse)
 
 library(showtext)
 ## Loading Google fonts (http://www.google.com/fonts)
@@ -29,24 +30,62 @@ sticker(gryph, package="UGRU", p_size=23,  s_x=1, s_y=1, s_width=.1, s_height=.1
 
 ##################
 #
-library(aphid)
-library(coil)
-library(tidyverse)
 
 x = aphid::plot.PHMM(nt_PHMM, from = 653, to = 657)
 
 
 
-logo_plt = ~plot(cars, cex=.5, cex.axis=.5, mgp=c(0,.3,0), xlab="", ylab="")
+# coil with vaporwave look
 
-sticker(logo_plt, package="coil", p_size=50, s_x=.8, s_y=.6, s_width=1.4, s_height=1.2,
+logo_plt = ~ plot(cars, cex=.5, cex.axis=.5, mgp=c(0,.3,0), xlab="a", ylab="") + theme_minimal()
+
+
+logo_plt
+
+
+mtcars2 <- within(mtcars, {
+        vs <- factor(vs, labels = c("V-shaped", "Straight"))
+        am <- factor(am, labels = c("Automatic", "Manual"))
+        cyl  <- factor(cyl)
+        gear <- factor(gear)
+})
+
+
+p1 <- ggplot(mtcars2) +
+        geom_point(aes(x = wt, y = mpg, colour = gear)) +
+        labs(title = "Fuel economy declines as weight increases",
+             subtitle = "(1973-74)",
+             caption = "Data from the 1974 Motor Trend US magazine.",
+             tag = "Figure 1",
+             x = "Weight (1000 lbs)",
+             y = "Fuel economy (mpg)",
+             colour = "Gears")
+
+#######
+# make a single dot - change colour to that of the middle of the hex
+x =  NULL
+p1 <- ggplot(x) +
+        geom_point(aes(x = 0, y = 0),color='orchid1') +
+        labs() + theme_void()
+p1
+
+#vaporwave coil with no image
+sticker(p1, package="coil", p_size=50, s_x=.8, s_y=.6, s_width=1.4, s_height=1.2,
         h_size = 7, #width of border
         p_color = "turquoise2", #colour of name
         h_fill = "orchid1", # colour of middle of hex
         h_color ="springgreen2", # colour of border
-        spotlight = TRUE,
+        spotlight = TRUE, # a highlight on the hex to shade colours
+        l_x = 1.3, # spotlight, x axis
+        l_y = .7, # spotlight, y axis
+        l_width = 2, # width of spotlight
+        l_height = 2, # height of spotlight
+        l_alpha  = .5 , # how strong is the spotlight
         p_family = "Dancing Script",
         filename = "coil_logo.png")
+
+
+
 
 
 

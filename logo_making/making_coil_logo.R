@@ -4,6 +4,7 @@ library(tidyverse)
 
 library(showtext)
 ## Loading Google fonts (http://www.google.com/fonts)
+font_add_google("Source Code Pro")
 font_add_google("Anton")
 font_add_google("Dancing Script")
 ## Automatically use showtext to render text for future devices
@@ -82,8 +83,30 @@ sticker(p1, package="coil", p_size=50, s_x=.8, s_y=.6, s_width=1.4, s_height=1.2
         l_height = 2, # height of spotlight
         l_alpha  = .5 , # how strong is the spotlight
         p_family = "Dancing Script",
-        filename = "coil_logo.png")
+        filename = "coil_logo_vw.png")
 
+
+
+
+
+######
+# more subdued aesthetic for coil
+x =  NULL
+p2 <- ggplot(x) +
+        geom_point(aes(x = 0, y = 0),color='darkslategray1') +
+        labs() + theme_void()
+
+p2 = "slinky-png-43487.png"
+
+sticker(p2, package="coil", p_size=48, 
+        p_x = 1, p_y = .75 , #name location
+        s_x=1, s_y= 1.33, s_width = 0.5, s_height=0.5, #subplot info, i.e. where the image goes
+        h_size = 4, #width of border
+        p_color = "black", #colour of name
+        h_fill = "darkslategray1", # colour of middle of hex
+        h_color ="darkslategray4", # colour of border
+        p_family = "Source Code Pro",
+        filename = "coil_logo_std.png")
 
 
 

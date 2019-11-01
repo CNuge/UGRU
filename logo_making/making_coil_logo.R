@@ -91,10 +91,6 @@ sticker(p1, package="coil", p_size=50, s_x=.8, s_y=.6, s_width=1.4, s_height=1.2
 
 ######
 # more subdued aesthetic for coil
-x =  NULL
-p2 <- ggplot(x) +
-        geom_point(aes(x = 0, y = 0),color='darkslategray1') +
-        labs() + theme_void()
 
 p2 = "slinky-png-43487.png"
 
@@ -108,9 +104,20 @@ sticker(p2, package="coil", p_size=48,
         p_family = "Source Code Pro",
         filename = "coil_logo_std.png")
 
+x =  NULL
+p3 <- ggplot(x) +
+        geom_point(aes(x = 0, y = 0),color='darkslategray1') +
+        labs() + theme_void()
 
-
-
+sticker(p3, package="", p_size=48, 
+        p_x = 1, p_y = .75 , #name location
+        s_x=1, s_y= 1.33, s_width = 0.5, s_height=0.5, #subplot info, i.e. where the image goes
+        h_size = 4, #width of border
+        p_color = "black", #colour of name
+        h_fill = "darkslategray1", # colour of middle of hex
+        h_color ="darkslategray4", # colour of border
+        p_family = "Source Code Pro",
+        filename = "logo_empty.png")
 
 
 #rayshader for 2 and 3d plotting

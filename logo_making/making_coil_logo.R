@@ -112,7 +112,7 @@ p3 <- ggplot(x) +
 sticker(p3, package="", p_size=48, 
         p_x = 1, p_y = .75 , #name location
         s_x=1, s_y= 1.33, s_width = 0.5, s_height=0.5, #subplot info, i.e. where the image goes
-        h_size = 4, #width of border
+        h_size = 1, #width of border
         p_color = "black", #colour of name
         h_fill = "darkslategray1", # colour of middle of hex
         h_color ="darkslategray4", # colour of border

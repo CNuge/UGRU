@@ -1,0 +1,338 @@
+---
+title: "An introduction to using functions in R"
+author: "Cameron M. Nugent"
+date: '2019-10-17'
+output:
+  html_document:
+    df_print: paged
+---
+
+## Introduction
+
+R is considered to be a functional programming language. What this means is that the syntax and rules of the language are most effective when you write code built around the use of functions. They allow you to modularize code, thereby isolating different blocks in a way that makes your code more generalized, reuseable, readable and easier to debug. This post is meant to introduce the three basic parts of a function (the arguments, the body and the environment), demonstrate some of the rules that govern function behaviour and provide a launchpad to help you get started writing functions in your own R code.
+
+## Basic example of function syntax and use
+
+A function is defined through the use of the keyword `function` and the assignment of the function to a name. In the example below `test_func` is the name of the function and everything within the curly braces is the body of the function. `return` is the keyword used to identify what the function yields.
+
+```{r}
+
+test_func = function(){
+  return("I'm a function, just doing my thing.")
+}
+
+#call a function that takes no arguments
+test_func() #the function is run on this line]
+
+head(iris)
+```
+
+### Using the function
+
+Setting the function equal to a variable captures the output as opposed to throwing it to the ether. I use the toupper function here so you can see which line the output comes from. 
+```{r}
+
+y = test_func()
+
+toupper(y)
+hist(iris$Sepal.Length)
+```
+
+## Arguments
+Most functions don't operate in isolation though. It is most common to create functions that take one or more arguments. Think of an argument as the local variable name of the data that the function is acting upon.
+
+```{r, error=TRUE}
+
+test_maths = function(x){
+  output = x * 5
+  return(output)
+}
+
+test_maths()#need to pass an argument!
+```
+
+We can pass a plain integer to the function, it is assigned to the argument x.
+```{r}
+test_maths(25)
+```
+
+
+Variables can be passed into a function... essentially the variable is renamed in the local environment of the function. The version of the variable outside of the function is not affected.
+```{r}
+y = 7
+test_maths(y)
+print(paste("After the function call, the value of y is:", y))
+```
+
+Sometimes you want the variable to be modified by the function. You can define y as both the input and the output location.
+```{r}
+y = 7
+y = test_maths(y)
+y
+```
+
+### Arguments - defaults
+In the arguments section of the function you can define default values for the arguments. Now if we do not input a value for x, it will be set to the default value.
+```{r}
+test_maths = function(x = 99){
+  output = x * 5
+  return(output)
+}
+
+test_maths()#no value passed for argument x, so it runs with the default.
+```
+
+
+### Multiple arguments
+Functions can also take more than one argument.
+```{r}
+algebra_ex = function(x, y){
+  print(paste("x is:", x))
+  print(paste("y is:", y))
+
+  output = x*(x+y)
+    
+  return(output)
+}
+
+algebra_ex(x=6, y=7)
+```
+
+Arguments are positional. In this example if we don't explicitly state which value is x and y then it is inferred based on their order.
+```{r}
+algebra_ex(7,8) #x is 7 and y is 8
+```
+
+You can overrule the positions by naming the arguments.
+```{r}
+algebra_ex(y=7, x=8)
+```
+
+A cool/unique thing about functions in r is that you can use unambiguous abbreviations of argument names to pass values.
+
+```{r}
+algebra_ex = function(longname_x, y){
+  print(paste("longname_x is:", longname_x))
+  print(paste("y is:", y))
+
+  output = longname_x*(longname_x+y)
+    
+  return(output)
+}
+
+algebra_ex(y=7, l=6) #don't need to type all of longname_x
+```
+
+As a demonstration, both of the following are in fact valid r code. In both instances, `iris` is passed to the argument `data` in the first instance by position and the second through the abbreviated argument name.
+```{r}
+#positional inference of arguments
+lm(Sepal.Length~Sepal.Width , iris)
+
+#abbreviation
+lm(Sepal.Length~Sepal.Width , d = iris)
+```
+
+Taking a step back `lm` is just a pre-existing r function, it obeys all of the same basic rules as the functions we make. Writing your own functions can help you understand how some of the tools you commonly use in R are designed.
+```{r}
+lm
+```
+
+
+## Function body 
+
+The body of the function is the code it contains to do the work that the function is designed for. Generally the body is enclosed by curly braces. The body is just regular r code, but it is important to think about what the input and the output of the body are. The input to the body is the arguments of the function, and the output is either what is called in a `return` statement or the variable called on the last line of the function. Return statements and even curly braces are optional... but I find these deviations from explicit syntax can lead to problems.
+
+These are valid.
+```{r}
+maths = function(x, y) x * y * y * 3
+
+#so is this
+maths = function(x, y){
+  z =  x * y * y * 3
+  z
+} 
+
+maths(3, 6)
+```
+
+I find this to be the most clear, even if it is a bit more typing.
+
+```{r}
+maths = function(x, y){
+  z = x * y * y * 3
+  return(z)
+}
+
+maths(3, 6)
+```
+
+### Function body - return logic
+A return statement does not just have to occur at the end of a function. Returning earlier can make functions cleaner and more efficient. Having multiple return statements in a function is a good way to control things. When controlling execution like this it is imperative that you are explicit!
+
+For example, take a moment to consider the following function that has two possible routes to completing its execution. It runs a simulation where it terminates early if a certain condition is met, otherwise it completes the for loop and terminates normally. 
+
+```{r}
+
+how_long_to_x = function(less_than = 5, range = 25, max = 20){
+  #for the given number of times
+  for(i in 1:max){
+    #get a random number
+    new_num = sample(1:range, 1)
+    #check if it is less than the cutoff
+    if(new_num < less_than){
+      return(paste("Found a number less than", less_than, "in", i, "iterations."))
+    }
+  }
+  return(paste("did not find a number less than", less_than, "over", max, "iterations."))
+}
+
+how_long_to_x()
+how_long_to_x()
+how_long_to_x()
+how_long_to_x()
+how_long_to_x()
+```
+The function is terminated early in all instances except ones where the number is not found, this is efficient as the minimal number of iterations is conducted. It also allows us to avoid having to write additional code to iterate over the for loop output and check if/where the condition we are interested in is met.
+
+
+## Function environment 
+
+The last important aspect of functions to discuss is the environment of a function. This determines how a function finds data corresponding to variable names, and can be thought of as the rules that define what a function can 'see'(or what variables are within the scope of a function). 
+
+Any variable defined within a function is within its immediate environment and therefore within its scope. When a variable is referenced, this is the first place a function will look to match a value to a variable.
+
+```{r}
+
+math1 = function(x){
+  y=10
+  return(x * y)
+}
+
+#QUESTION: what will the following yield and why?
+
+y = 12
+math1(y)
+
+# a: 144
+# b: 100
+# c: 120
+# d: error
+
+
+```
+
+The second place a function will look to access a value is *up* a level, i.e. outside of the function in the surrounding environment. 
+
+```{r}
+#this will work
+x = 17
+math2 = function(){
+  y=10
+  return(x * y)
+}
+math2()
+```
+
+Functions *cannot* look *down* a level.  The variable `x5` is defined within a nested function, down a level from `math3`. The wrapping function cannot access this variable as it is outside of its scope. The following therefore returns an error.
+
+```{r, error=TRUE}
+
+nested_math = function(y){
+  x5 = y+3
+  return(x)
+}
+
+math3 = function(){
+  y = 10
+  z = nested_math(y)
+  return(x5 * y)
+}
+
+math3()
+```
+
+## Function environment - best practices
+
+Because of these rules functions can access variables in the global environment, but not vise versa. Generally its *very very bad* practice to call a global variable from within a function if you do not pass it in as an argument. This can have unforeseen consequences and should be avoided. Functions should be little self contained environments. Any variable they need that is not internally defined should be passed in as an argument.
+
+```{r}
+y = c(1,2,3,4,5,6)
+
+#hidden call to y in this function
+vector_math = function(x){
+  return(x*y)
+}
+
+in_dat = c(17, 38, 10) 
+out1 = vector_math(in_dat)
+print(out1)
+
+#say we did something else in our code and overwrite y
+y = 7
+
+#if we do not look inside of vector_math, we would assume
+#this function should have the same result as when it was run above
+out2 = vector_math(in_dat)
+out2  # what is going on here?  
+
+out1 == out2
+```
+
+The two identical function calls produce different outputs... errors of this kind can be really hard to pin down as the relevant code is hidden. Avoid this by having functions only utilize passed arguments. *Remember: just because something works, doesn't mean you should do it!* Followup: can you redesign the function above to make it safer?
+
+
+## Nested functions - cleaner code
+
+It is however okay to call functions from within functions. Assuming they all obey the rules about self contained environments, this is a great way to abstract away detail and keep things readable and reusable.
+
+Here we call the `my_mean` function from within another function, we don't need to worry about what is going on in its guts, we can just use it and rely on the code that exists elsewhere.
+
+```{r, error=TRUE}
+
+#Here I reinvent the wheel and write a function to take the mean of a vector
+my_mean = function(x){
+  count = 0
+  total = 0
+  for(n in x){
+    count = count + 1
+    total = total + n
+  }
+  if(count == 0){
+    stop("Cannot take the mean of an empty vector!\n")
+  }else if(count == 1){
+    warning("Be aware this is the mean of a single number!\n")
+  }
+  return(total/count)
+}
+
+my_mean(c(3,6,9,10))
+```
+
+```{r, error=TRUE}
+#if we later reuse this function, we can avoid all the detail contained within it
+my_tri_mean = function(x){
+  mod = my_mean(x)
+  out = 3*mod
+  return(out)
+}
+
+my_tri_mean(c(3,6,9,10.5))
+```
+
+
+### Function body - advanced
+In the `my_mean` function above I snuck in the two other statements you can use to return things from a function: `stop()` and `warning()`. I'm sure you've likely encountered the output of these when you make errors in your own programming (i.e. if you pass the wrong type of data to a function). As you can see here it is quite simple to add stop conditions or warnings to functions of your own. If you see a potential way that things can go wrong, adding defensive stop or warning statements is often a good idea.
+
+```{r, error=TRUE}
+z = c()
+my_tri_mean(z) #we hit the stop condition here and get an error
+```
+
+```{r, error=TRUE}
+x = c(1)
+my_tri_mean(x) #this only hits the warning condition, so the function executes but prints a warning of potential trouble
+
+```
+
+Hopefully this walkthrough of functions and their components has helped further your understanding of how to effectively design and use functions in your own work. Writing functions of your own is a powerful way to boost the efficiency and reusability of your code and I would encourage you to adopt this programming style in your future work.
+

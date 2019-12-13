@@ -1,8 +1,12 @@
 # DATATABLE TUTORIAL! #
 
-# The data.table package was designed by Matt Dowle in 2008. You can think of it as an "advanced" version of dataframe. It is compatible with all base R packages!
+# The data.table package was designed by Matt Dowle in 2008. 
+#You can think of it as an "advanced" version of dataframe. 
+#It is compatible with all base R packages!
 
-# Why data.table?: To decrease programming time (simpler syntax) & computation time, works well with large datasets, fast subsetting, grouping, merging, & it uses a key to sort the data and increase search efficiency
+# Why data.table?: To decrease programming time (simpler syntax) & computation time, 
+# works well with large datasets, fast subsetting, grouping, merging, 
+# & it uses a key to sort the data and increase search efficiency
 
 # Similar to SQL: DT[i, j, by]
 # i = where (row condition), j = select (column condition), by = group by (how you want to group your data)
@@ -101,6 +105,7 @@ dt[, mean(Value), by = Province]  ## Woah!
 # What is the mean of Value, grouped by province, for those rows with IDs greater than 50? (Using all three)!
 dt[ID > 50, mean(Value), by = Province]
 
+
 # How many observations for each province?
 dt[, .N, by = Province]
 
@@ -140,7 +145,8 @@ system.time(dt3[x == "a"])
 setkey(dt3, x)
 key(dt3)
 system.time(dt3["a"])
-# Since the data is sorted, do not have to search row by row...search reduced by half every time.
+# Since the data is sorted, do not have to search row by row...
+# search is O(log(n)) as opposed to O(n)
 
 # Yes...it's even faster than tidyverse!
 system.time(dt3 %>% 
@@ -191,11 +197,13 @@ rm(dt2, dtChain, dtChainSorted)
 
 # Let's try it out!
 head(dt[Province %like% "ario"])
-head(dt[Province %like% "[Ma]"])
+head(dt[Province %like% "[BQ]"])
+head(dt[Province %like% "Ma"])
 
 ?between
 # between is a convenience function for range subsets.
 head(dt[Value %between% c(0, 1)])
+
 
 # Also useful is the setnames funtion to rename columns by reference.
 setnames(dt, "Value", "Karl")
@@ -203,12 +211,12 @@ head(dt)
 
 #### SECTION 7. Sequence quality control using data.table. ####
 
-dfSalmon <- read_tsv("http://www.boldsystems.org/index.php/API_Public/combined?taxon=Salmonidae&geo=all&format=tsv")[, c("recordID", "bin_uri", "species_name", "markercode", "lat", "nucleotides")]
-
 # Reading and writing using data.table's fwrite and fread functions. These are VERY fast!
-fwrite(dfSalmon, "dfSalmon_Nov29.csv")
-# fread reads the data back in data.table format
-dtSalmon <- fread("dfSalmon_Nov29.csv")
+?fwrite
+
+dtSalmon <- fread("http://www.boldsystems.org/index.php/API_Public/combined?taxon=Salmonidae&geo=Canada&format=tsv")[, c("recordID", "bin_uri", "species_name", "markercode", "lat", "nucleotides")]
+dtSalmon
+
 class(dtSalmon)
 
 # Let's try using datatable syntax on sequence data.
@@ -271,4 +279,40 @@ dtSalmonNorth <- dtSalmon[lat > 0]
 # What's the median latitude for each BIN?
 head(dtSalmonNorth[, .(lat = median(lat)), by = bin_uri])
                                      
-                                     
+             
+multiply_these =  function(x, y){
+	x*y
+}                        
+
+#merging
+#Merge Two Data.Tables
+#Fast merge of two data.tables. The data.table method behaves very similarly to that of data.frames except that, by default, it attempts to merge
+
+prov_type
+
+
+dt[,'Province']
+dt[6]
+
+x = dt[, unique(Province)]
+where = data.table(Province = x)
+where = data.table(unique(dt[,'Province']))
+
+where[,'Region'] = list("mid", "west", "east", "east", "mid")
+where[,'Region' := list("mid", "west", "east", "east", "mid")]
+
+
+df['Province']
+df[6,]
+
+
+dt2 = merge(dt, where, by="Province")
+dt2
+
+
+
+
+
+
+
+

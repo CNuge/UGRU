@@ -90,3 +90,13 @@ gene_regions = AC08 %>%
                     filter(hit_dist <5000) %>%
                       select(chr, start, end, attribute, hit_dist) %>% 
                         pull(attribute)
+
+#NOTE - other strength of using functions is that we can iterate over multiple files easily
+#i.e. if these were all different gff files or something like that:
+files = c('file1', 'file2', 'file3')
+for(f in 1:length(files)){
+  AC08 = read_gff(files[[f]], chromosome = f)
+  
+  # then the other ~10 lines of manipulation
+}
+

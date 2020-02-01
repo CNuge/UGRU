@@ -12,7 +12,7 @@ setwd('~/PhD/R users group/Gene_region')
 #CAM - I have to rewrite the line
 setwd("~/bin/UGRU/matt_snp_work")
 
-##if packages not installed, uncomment & run preceeding line
+##if packages not installed, uncomment & run preceding line
 #install.packages('patchwork')
 library(patchwork)
 #install.packages('janitor')

@@ -114,7 +114,7 @@ for(f in file_vec){
 #called data, and save the data to there.
 #ill usually have an something like a 'raw' folder that the original tsvs are read from as well.
 
-dir.create('data/')
+dir.create('data/') #equivalent to mkdir from the cmd line
 
 #same loop as above, but the output file prefix now includes the foler in the name
 for(f in file_vec){

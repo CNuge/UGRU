@@ -194,7 +194,9 @@ for(f in names(file_vec)){
 # - don't have to make new variable names to make the different read/write unique
 # - to scale up, we just add files to the initial list
 # - organized, all the files in question are listed in a single place
-
+# - never more than one file loaded into memory at a time, if you tried to do this with lapply
+#   then all files have to be held in RAM at once, can lead to crash if big files (or if you
+#   have chrome and spotify can a bunch of other things open).
 
 
 #closing related thoughts:

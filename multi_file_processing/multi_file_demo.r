@@ -62,8 +62,8 @@ for(i in 1:5){
 # Below is the code for working on our series of files without having to hard code in
 # a bunch of read_tsv and write_tsv statements. we also don't have to copy and paste
 # the code block for each file, or come up with unique variable names for each one.
-# All we do it write out all the processing steps once, and rely and iterate over a
-# list of filenames to apply to processing to all of them sequentially
+# All we do it write out all the processing steps once, and iterate over the
+# vector of filenames to apply to processing to all files sequentially.
 
 #the demo files we generated above, names hardcoded
 file_vec = c(
@@ -75,14 +75,14 @@ file_vec = c(
 	)
 #note: you can call ls in the wd from your terminal to get these filenames quickly,
 #without needing to type them out yourself. Then just paste and add the 
-#quotes, brackets and parentheses or list.files() in R
+#quotes, brackets and parentheses. Or use list.files() in R.
 
-#note2 - you can skip typing the list but using list.files() 
+#note2 - you can skip typing the list by using list.files() 
 # but here be dragons if you have other things in the wd.
 #^ if you want to do this, you need to be organized and have the data in a dedicated folder
 
 #next we iterate over the FILENAMES and do our workflow for each file
-print("processing data files")
+print("processing data files") #this will come up at the end
 
 #cam tip - I comment the following line out above my file loops to facilitate testing on
 #only a single example, just run this line to simulate the first iteration and check it all works
@@ -95,7 +95,7 @@ for(f in file_vec){
 	dat = read_tsv(f)
 
 	print("conducting analysis")
-	#your manipulation code would go here. turning a column to uppercase as a standin for real analysis 
+	#your manipulation code would go here. We're turning a column to uppercase as a standin for real analysis .
 	dat$Species = toupper(dat$Species)
 
 	#build the output filename from the input name. We are adding a prefix to denote it as the output
@@ -139,9 +139,9 @@ for(f in file_vec){
 # remember we made that second set of files at the start?
 # here is the trick to extending this technique to processing two streams of files. 
 # Instead of iterating over file names, we label two vectors and iterate
-# over the vector names in order to grab both filenames and read them both in 
-# without needing to hardcode any of the names in our read or write statements or
-# copy and paste the inbetween code all over the place.
+# over the vector names. This lets us grab both filenames and read them in 
+# without needing to hardcode any of the read or write statements.
+# We also don't have to copy and paste the in between code all over the place.
 
 
 #Here we merge out demo inputs with our other info, and make a series of output files.
@@ -165,6 +165,7 @@ other_file_vec = c(
 'f5' = 'other_info_file_5.tsv'
 )
 
+# bonus pattern
 # instead of pasting a prefix using paste0 like we did above, 
 # we can use the same trick to access bespoke output filenames with ease
 custom_outname = c(
@@ -218,13 +219,13 @@ for(f in names(file_vec)){
 #
 #   Rscript multi_file_demo.r 
 #
-# - the print statements and Rscript allow for tidy tracking of execution progress, can identify
+# - the print statements and use of Rscript allow for tidy tracking of execution progress, can identify
 #   corrupted inputs, or bugs in our code more easily
 #
 #   Rscript multi_file_demo.r > cam_example.log
 #
-#   ^cam remember to change an input filename or strucutre and rerun this line, 
-#    we can catch the error easily b/c/ of the prints
+#   ^cam when doing demo remember to change an input filename or strucutre and rerun this line, 
+#    we can catch the error easily b/c of the prints
 
 
 
@@ -234,10 +235,11 @@ for(f in names(file_vec)){
 ############################################
 # NOTE - DANGER ZONE!!!!!!
 # dont run this if you are not following along in a dedicated working directory
-# nor if you don't understand it.
+# or if you don't understand it.
 # YOU WILL DELETE ALL THE .TSVs IN THE FOLDER
 
-#this is wrapped in a function only so that you can't execute it by accident
+#this is wrapped in a function only so that you can't execute it by accident if you're
+#playing fast and loose with the running of code.
 #run the function body only.
 danger_x = function(){
 

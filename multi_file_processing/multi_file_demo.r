@@ -134,7 +134,6 @@ for(f in file_vec){
 }
 
 
-
 #########
 # multiple file loop processing
 #########
@@ -229,10 +228,6 @@ for(f in names(file_vec)){
 #
 #   ^cam when doing demo remember to change an input filename or strucutre and rerun this line, 
 #    we can catch the error easily b/c of the prints
-
-
-
-
 
 
 ############################################

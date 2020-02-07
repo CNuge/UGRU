@@ -17,14 +17,14 @@ getwd() #files will appear where this is set to.
 #warning: we gonna make this folder a mess on purpose.
 
 
-#this puts fake ids on the iris dataset, we will use these for merging dataframes
-iris$id_index = unlist(lapply(1:nrow(iris), function(i){
+#this puts fake ids on the REDACTED dataset, we will use these for merging dataframes
+mtcars$id_index = unlist(lapply(1:nrow(mtcars), function(i){
 	paste0("ID_", i)
 	}))
 
 #setup - make some data files
 #the contents of the files aren't all that important, so we will just
-#rep the iris datset using the following
+#rep the REDACTED datset using the following
 
 #note below the use of paste0 to make a string, this is a good motif for auto generating
 #filenames on the fly (i.e. if the filenames are structured)
@@ -36,8 +36,8 @@ for(i in 1:5){
 	#^ these will come up later, we will walk through iterative file merger/dataframe joining
 
 	#i prefer tsvs to csvs because they're easier to examine visually in my text editor
-	write_tsv(iris, fname) 
-	write_tsv(iris, right_fname) 
+	write_tsv(mtcars, fname) 
+	write_tsv(mtcars, right_fname) 
 }
 
 
@@ -95,8 +95,13 @@ for(f in file_vec){
 	dat = read_tsv(f)
 
 	print("conducting analysis")
+<<<<<<< HEAD
+	#your manipulation code would go here. turning a column to uppercase as a standin for real analysis 
+	dat$wt = dat$wt + 45
+=======
 	#your manipulation code would go here. We're turning a column to uppercase as a standin for real analysis .
 	dat$Species = toupper(dat$Species)
+>>>>>>> master
 
 	#build the output filename from the input name. We are adding a prefix to denote it as the output
 	#note - this is because you generally never ever want to overwrite the input file, could make unfixable error!
@@ -122,7 +127,7 @@ for(f in file_vec){
 
 	dat = read_tsv(f)
 
-	dat$Species = toupper(dat$Species) #your r code goes here
+	dat$wt = dat$wt + 45 #your r code goes here
 
 	outname = paste0("data/output_", f) 
 

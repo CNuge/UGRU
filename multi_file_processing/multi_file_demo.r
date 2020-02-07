@@ -3,7 +3,6 @@
 # a ugru tutorial by cam
 ###########
 
-
 #I find read_csv to be superior in pretty nuch every way
 #ergo we will use it
 
@@ -77,11 +76,9 @@ file_vec = c(
 #note: you can call ls in the wd from your terminal to get these filenames quickly,
 #without needing to type them out yourself. Then just paste and add the 
 #quotes, brackets and parentheses. Or use list.files() in R.
-
 #note2 - you can skip typing the list by using list.files() 
 # but here be dragons if you have other things in the wd.
 #^ if you want to do this, you need to be organized and have the data in a dedicated folder
-
 #next we iterate over the FILENAMES and do our workflow for each file
 print("processing data files") #this will come up at the end
 
@@ -193,7 +190,7 @@ for(f in names(file_vec)){
 
 
 	#write the merged and manipulated df to the output
-	write_tsv(out_dat, custom_outname[[f]])
+	write_tsv(out_dat, paste0("../data/",custom_outname[[f]]))
 
 }
 

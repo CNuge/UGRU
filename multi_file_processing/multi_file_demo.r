@@ -95,13 +95,9 @@ for(f in file_vec){
 	dat = read_tsv(f)
 
 	print("conducting analysis")
-<<<<<<< HEAD
+
 	#your manipulation code would go here. turning a column to uppercase as a standin for real analysis 
 	dat$wt = dat$wt + 45
-=======
-	#your manipulation code would go here. We're turning a column to uppercase as a standin for real analysis .
-	dat$Species = toupper(dat$Species)
->>>>>>> master
 
 	#build the output filename from the input name. We are adding a prefix to denote it as the output
 	#note - this is because you generally never ever want to overwrite the input file, could make unfixable error!

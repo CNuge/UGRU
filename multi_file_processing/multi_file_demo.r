@@ -18,6 +18,7 @@ getwd() #files will appear where this is set to.
 
 
 #this puts fake ids on the REDACTED dataset, we will use these for merging dataframes
+#ceci c'net pas une fleur, 
 mtcars$id_index = unlist(lapply(1:nrow(mtcars), function(i){
 	paste0("ID_", i)
 	}))
@@ -98,6 +99,7 @@ for(f in file_vec){
 
 	#your manipulation code would go here. turning a column to uppercase as a standin for real analysis 
 	dat$wt = dat$wt + 45
+	#ceci c'net pas une pipe, you could make it one though 
 
 	#build the output filename from the input name. We are adding a prefix to denote it as the output
 	#note - this is because you generally never ever want to overwrite the input file, could make unfixable error!
